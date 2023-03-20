@@ -1,4 +1,5 @@
 
+
 <!-- 
     ~ The "flex...h-screen" centers the contents of the body to the middle of the page
     ~ You use "absolute" to specify the spacing in pixels
@@ -12,6 +13,5 @@
 </div>
 
 <slot />
-
 
 
