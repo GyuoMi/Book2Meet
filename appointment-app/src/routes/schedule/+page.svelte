@@ -37,9 +37,11 @@ function createEvents() {
     {start: days[1], end: days[3], resourceId: 1, title: "All-day events can be displayed at the top", color: "#B29DD9", allDay: true} ]; 
 }
 
-function _pad(num) { let norm = Math.floor(Math.abs(num)); return (norm < 10 ? '0' : '') + norm; } 
+    function _pad(num) { 
+        let norm = Math.floor(Math.abs(num)); 
+        return (norm < 10 ? '0' : '') + norm; 
+    } 
 </script>
-
 
 
 <Calendar {plugins} {options} />
