@@ -4,7 +4,6 @@
     import '@event-calendar/core/index.css';
     import Interaction from '@event-calendar/interaction'
 
-
     let plugins = [TimeGrid,Interaction];
     let options = {
         view: 'timeGridWeek',
@@ -13,19 +12,17 @@
         selectable: true,
         unselectAuto: false,
         nowIndicator: true,
-        headerToolbar: { start: 'prev,next today', center: 'title', end:''},
-        events: createEvents(),
-    };
-    function createEvents() { 
         
-    }
+        headerToolbar: { start: 'prev,next today', center: 'title', end:''},
+        select: createEvents(),
+        //events: 
+    };
     function setEvent(){
 
     }
-
-    function _pad(num) { 
-        let norm = Math.floor(Math.abs(num)); 
-        return (norm < 10 ? '0' : '') + norm; 
-    } 
+    function createEvents() { 
+        
+    }
+    
 </script>
 <Calendar {plugins} {options} />
