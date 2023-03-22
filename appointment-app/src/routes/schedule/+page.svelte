@@ -4,7 +4,9 @@
     import '@event-calendar/core/index.css';
     import Interaction from '@event-calendar/interaction'
     
+    
     let ec;
+    let eventSelected;
     let plugins = [TimeGrid,Interaction];
     let options = {
         view: 'timeGridWeek',
@@ -13,9 +15,10 @@
         selectable: true,
         unselectAuto: true,
         nowIndicator: true,
-        
+        height: "800px",
         headerToolbar: { start: 'prev,next today', center: 'title', end:''},
         select: createEventWithPointer,
+        eventClick: getCurrentEventClicked,
         
         //events: 
     };
