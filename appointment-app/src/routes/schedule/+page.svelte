@@ -40,10 +40,19 @@
         {
             start: timeStart,
             end: timeEnd,
-            resourceId:2,
-            title: "this",
+            title: "Availiable for Appointment",
             color: getRandomHexColor()
         })
+    }
+    function getCurrentEventClicked(info){
+       eventSelected = info;
+       
+    }
+
+
+    function deleteEventFromCalender(){
+        console.log(eventSelected);
+        ec.removeEventById(eventSelected.event.id);
     }
 
 function getRandomHexColor() {
@@ -63,4 +72,10 @@ function getRandomHexColor() {
         return (norm < 10 ? '0' : '') + norm; 
     } 
 </script>
+
+
 <Calendar bind:this={ec} {plugins} {options} />
+
+<div class="flex flex-col items-center ">
+    <button on:click={deleteEventFromCalender} class="btn btn-primary place-item-center">Delete Event</button>
+</div>
