@@ -15,17 +15,23 @@
         nowIndicator: true,
         
         headerToolbar: { start: 'prev,next today', center: 'title', end:''},
-        select: createEvents,
+        select: createEventWithPointer,
         
         //events: 
     };
     function setEvent(){
 
     }
-    function createEvents(info) { 
-        let timeStart = info.start.getFullYear() + "-" + _pad(info.start.getMonth()+1) + "-" +_pad(info.start.getDate()) + " "+info.start.getHours()+":"+info.start.getMinutes(); 
+    function formatDateTime(date){
+       let formatedDate = date.getFullYear() + "-" + _pad(date.getMonth()+1) + "-" +_pad(date.getDate()) + " "+date.getHours()+":"+date.getMinutes(); 
+        
+       return formatedDate;
 
-        let timeEnd = info.end.getFullYear() + "-" + _pad(info.end.getMonth()+1) + "-" +_pad(info.end.getDate()) + " "+info.end.getHours()+":"+info.end.getMinutes(); 
+    }
+    function createEventWithPointer(info) { 
+        let timeStart= formatDateTime(info.start); 
+
+        let timeEnd = formatDateTime(info.end); 
         
         ec.addEvent(
         {
