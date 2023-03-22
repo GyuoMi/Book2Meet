@@ -39,9 +39,13 @@
             end: timeEnd,
             resourceId:2,
             title: "this",
-            color: "#779ECB"
+            color: getRandomHexColor()
         })
     }
+
+function getRandomHexColor() {
+    return "#"+Math.floor(Math.random()*16777215).toString(16);
+}
     /*
     example of what data needs to be in the event object. 
     {
