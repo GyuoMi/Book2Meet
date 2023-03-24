@@ -1,9 +1,10 @@
-import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import firebase from 'firebase/app'
+import initializeApp from 'firebase/app';
+import  from 'firebase/auth';
 import { firebaseConfig } from "./firebaseConfig.js";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the authentication service
 export const auth = getAuth(app);
