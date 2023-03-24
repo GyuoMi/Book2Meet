@@ -20,8 +20,11 @@
   </div>
   </div>
   
-  <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-xl">Book2Meet</a>
+  <!--
+    Lenox ~ I modififed the navbar Book2Meet button that when it is clicked it takes us back to the welcome page
+  -->
+  <div class="flex-1"> 
+    <a href="."> <img src="/images/book2meet.png" class="rounded-lg " style="width: 7%; height:auto; display: block; margin: 0 auto;position: absolute;top: 7px; left:60px"> </a>
   </div>
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
