@@ -2,8 +2,11 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { firebaseConfig } from './firebaseConfig.js'
 import { readable } from 'svelte/store'
+import  "firebase/database";
 firebase.initializeApp(firebaseConfig)
 
+
+const database = firebase.database();
 //authentication
 export const initAuth = () => {
   const auth  = firebase.auth()
@@ -24,9 +27,10 @@ export const initAuth = () => {
   provider.addScope('email');
   firebase.auth().signInWithRedirect(provider);
 
-  
+
   return{
     loginWithGoogle
   }
   }
+  
 }
