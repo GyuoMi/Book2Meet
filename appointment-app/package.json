@@ -40,6 +40,6 @@
 	"type": "module",
 	"dependencies": {
 		"daisyui": "^2.51.4",
-		"firebase": "^8.0.0"
+		"firebase": "^8.10.1"
 	}
 }

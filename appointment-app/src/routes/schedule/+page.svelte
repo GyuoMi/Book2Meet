@@ -2,9 +2,9 @@
     import Calendar from '@event-calendar/core';
     import TimeGrid from '@event-calendar/time-grid';
     import '@event-calendar/core/index.css';
-    import Interaction from '@event-calendar/interaction'
-    
-    
+    import Interaction from '@event-calendar/interaction';
+    import {insertEventIntoDatabase} from '../../auth/index'; 
+
     let ec;
     let eventSelected;
     let plugins = [TimeGrid,Interaction];
@@ -22,8 +22,16 @@
         
         //events: 
     };
-    function setEvent(){
-
+    function setEventIntoDatabase(){
+       let eventsInCalendar = ec.getEvents();
+       for (let i = 0; i < eventsInCalendar.length; i++) {
+        const insert= array[i];
+        
+       }
+    }
+    function getEventsFromDatabase(){
+        let events = ec.getEvents();
+        return events;
     }
     function formatDateTime(date){
        let formatedDate = date.getFullYear() + "-" + _pad(date.getMonth()+1) + "-" +_pad(date.getDate()) + " "+date.getHours()+":"+date.getMinutes(); 

@@ -34,3 +34,7 @@ export const initAuth = () => {
   }
   
 }
+
+export const insertEventIntoDatabase = (eventData) =>{
+  const newEvent = database.ref('clients').push(eventData);
+}
