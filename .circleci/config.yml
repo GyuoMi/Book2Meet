@@ -32,12 +32,6 @@ jobs:
           name: "curl and install latest version of node"
           command: "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
           sudo apt-get install -y nodejs"
-      - run:
-          name: "refresh env variables"
-          command: "sudo source ~/.bashrc"
-      - run:
-          name: "install latest version of node"
-          command: "nvm install 18.15.0""
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
