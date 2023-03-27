@@ -29,14 +29,15 @@ jobs:
           name: "install curl"
           command: "sudo apt install curl"
       - run:
-          name: "curl nvm (node version manage) and install"
-          command: "curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash"
+          name: "curl and install latest version of node"
+          command: "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
+          sudo apt-get install -y nodejs"
       - run:
           name: "refresh env variables"
           command: "sudo source ~/.bashrc"
       - run:
           name: "install latest version of node"
-          command: "nvm install 18.15.0"
+          command: "nvm install 18.15.0""
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
