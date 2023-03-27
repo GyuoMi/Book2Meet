@@ -16,8 +16,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "running ls to see directory"
-          command: "ls"
+          name: "going into appointment-app directory"
+          command: "cd appointment-app"
       - run:
           name: "update package source list"
           command: "sudo apt update"
