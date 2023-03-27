@@ -30,13 +30,15 @@ jobs:
           command: "sudo apt install curl"
       - run:
           name: "curl and install latest version of node"
-          command: "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
-          sudo apt-get install -y nodejs"
+          command: "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt-get install -y nodejs"
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: "install dependencies"
           command: npm install
+      - run:
+          name: "install playwright"
+          command: "npx playwright install"
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
