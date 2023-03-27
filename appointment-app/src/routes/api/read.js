@@ -1,4 +1,4 @@
-import { mysqlconn } from "../../auth/db";
+import { mysqlconn } from "../../auth/db.js";
 
 export async function get() {
     
