@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "running ls to see directory"
+          command: "ls"
+      - run:
           name: "update package source list"
           command: "sudo apt update"
       - run:
