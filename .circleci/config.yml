@@ -5,8 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  test:
-    working_directory: ~/Book2Meet/appointment-app
+  say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -16,30 +15,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "update package source list"
-          command: "sudo apt update"
-      - run:
-          name: "install nodejs"
-          command: "sudo apt install nodejs"
-      - run:
-          name: "install npm"
-          command: "sudo apt install npm"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: "install dependencies"
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: "Run Tests"
-          command: npm run test
+          name: "Say hello"
+          command: "echo Hello, World!"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  testing-workflow:
+  say-hello-workflow:
     jobs:
-      - test
+      - say-hello
