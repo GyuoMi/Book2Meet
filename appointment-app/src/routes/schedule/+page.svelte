@@ -22,9 +22,7 @@
         
         //events: 
     };
-    function setEvent(){
-
-    }
+    
     function formatDateTime(date){
        let formatedDate = date.getFullYear() + "-" + _pad(date.getMonth()+1) + "-" +_pad(date.getDate()) + " "+date.getHours()+":"+date.getMinutes(); 
         
