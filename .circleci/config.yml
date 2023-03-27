@@ -33,7 +33,7 @@ jobs:
           command: "curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash"
       - run:
           name: "refresh env variables"
-          command: "source ~/.bashrc"
+          command: "sudo source ~/.bashrc"
       - run:
           name: "install latest version of node"
           command: "nvm install 18.15.0"
