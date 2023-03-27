@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "update package source list"
+          command: "sudo apt update"
+      - run:
           name: "install nodejs"
           command: "sudo apt install nodejs"
       - run:
