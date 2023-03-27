@@ -39,6 +39,9 @@ jobs:
       - run:
           name: "install playwright"
           command: "npx playwright install"
+      - run:
+          name: "install playwright dependencies"
+          command: "sudo npx playwright install-deps"
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
