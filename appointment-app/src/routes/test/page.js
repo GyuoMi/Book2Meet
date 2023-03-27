@@ -1,6 +1,6 @@
 import { mysqlconn } from "../../auth/db.js";
 
-async function get() {
+export async function get() {
     
     let results = await mysqlconn.query('SELECT * FROM mytable')
         .then(function([rows,fields]) {

@@ -25,3 +25,21 @@
       </div>
 
 </div>
+
+if (!password) {
+  passwordStrengthText = 'Please enter a password';
+} else if (password.length < 8) {
+  passwordStrengthText = 'Password must be at least 8 characters long';
+} else if (!hasLowercase) {
+  passwordStrengthText = 'Password must contain at least one lowercase letter';
+} else if (!hasUppercase) {
+  passwordStrengthText = 'Password must contain at least one uppercase letter';
+} else if (!hasNumber) {
+  passwordStrengthText = 'Password must contain at least one number';
+} else if (!hasSpecialChar) {
+  passwordStrengthText = 'Password must contain at least one special character';
+} else if (!regex.test(password)) {
+  passwordStrengthText = 'Password is invalid';
+} else {
+  passwordStrengthText = 'Password is strong';
+}
