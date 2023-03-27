@@ -16,12 +16,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Update npm"
-          command: "sudo npm install -g npm@5"
+          name: "install nodejs"
+          command: "sudo apt install nodejs"
+      - run:
+          name: "install npm"
+          command: "sudo apt install npm"
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: "Install Dependencies"
+          name: "install dependencies"
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
