@@ -213,7 +213,7 @@
 
 
           <span class="label-text" style="position:absolute; left:85px; bottom:30px">Already have an account?</span>
-          <a href="/login" class="label-text-alt link link-primary link-hover underline" style="position:absolute; left:244px; bottom:31px" disabled={!email || !password || !confirmPassword || emailError || passwordError || confirmPasswordError}>LOG IN!</a>
+          <a href="/login" class="label-text-alt link link-primary link-hover underline" style="position:absolute; left:244px; bottom:31px">LOG IN!</a>
         </label>
       </div>
     </div>
