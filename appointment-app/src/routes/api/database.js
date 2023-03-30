@@ -20,8 +20,7 @@ export async function getJsonFromSelectQuery(query) {
     }
 }
 
-export function showAll(){
-    let data = getJsonFromSelectQuery("Select * from Client");
-    console.log(data);
+export async function changeDataInDatabase(query){
+    await mysqlconn.query(query);
 }
-showAll();
+
