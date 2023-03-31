@@ -1,5 +1,44 @@
 
+<script lang="ts">
+  import { emailPattern, passwordPattern } from './validation.js';
+  import { onMount } from 'svelte';
+  
+  let email = '';
+  let password = '';
+  let emailError ='';
 
+  let emailValid = false;
+  let passwordValid = false;
+  let isFormValid = false;
+  let formErrorMessage='';
+
+
+  function handleSubmit() {
+    isFormValid = email.trim() !== '' && password.trim() !== '';
+    if (!isFormValid) {
+      formErrorMessage = 'Please fill in all required fields and ensure they are valid';
+    } else {
+      formErrorMessage = '';
+    }
+      return;
+    }
+
+    function handleClick() {
+    handleSubmit();
+    password='';
+   
+  }
+
+
+
+
+
+
+
+
+
+
+</script>
 <!-- 
     ~ The "flex...h-screen" centers the contents of the body to the middle of the page
     ~ You use "absolute" to specify the spacing in pixels
@@ -67,13 +106,29 @@
       <h1 class="text-5xl font-bold">Login now!</h1>
       <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
     </div>
+
+
     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div class="card-body">
         <div class="form-control">
           <label class="label">
             <span class="label-text text-primary">Email Address</span>
           </label>
-          <input type="text" placeholder="john.snow@gmail.com" class="input input-bordered" />
+          <input type="text" 
+                 placeholder="john.snow@gmail.com" 
+                 class="input input-bordered" 
+                 bind:value={email}
+                 on:input={() => {
+                  if (!emailPattern.test(email)) {
+                    emailError = 'Invalid email address';
+                    }else {
+                       emailError = '';
+                       emailValid = true;
+                    }
+                }}/>
+                {#if emailError}
+                <p class="text-red-600 text-sm">{emailError}</p>
+                {/if}
         </div>
         <div class="form-control">
           <label class="label">
@@ -84,9 +139,24 @@
             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
           </label>
         </div>
-        <div class="form-control mt-6">
-          <a href="/schedule" class="btn btn-primary">Login</a>
+
+
+        <div class="error-message">
+          {#if formErrorMessage}
+          <div class="alert alert-error shadow-lg mt-0" style="height:20px">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span style="font-size: 14px;">Please fill in all the required fields.</span>
+            </div>
+          </div>
+          {/if}
         </div>
+
+        <div class="form-control mt-6">
+          <a href={emailValid ? '/schedule' : '#'} class="btn btn-primary" on:click={handleClick}>Login</a>
+        </div>
+
+
         <label class="label">
           <span class="label-text" style="position:absolute; left:85px; bottom:30px">Do not have an account?</span>
           <a href="/signup" class="label-text-alt link link-primary link-hover underline" style="position:absolute; left:244px; bottom:31px">SIGN UP!</a>
