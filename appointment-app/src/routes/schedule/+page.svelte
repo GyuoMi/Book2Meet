@@ -2,9 +2,10 @@
     import Calendar from '@event-calendar/core';
     import TimeGrid from '@event-calendar/time-grid';
     import '@event-calendar/core/index.css';
-    import Interaction from '@event-calendar/interaction'
-    
-    
+    import Interaction from '@event-calendar/interaction';
+    /** @type {import('./$types').PageServerLoad} */ 
+    export let data;
+
     let ec;
     let eventSelected;
     let plugins = [TimeGrid,Interaction];
@@ -19,8 +20,7 @@
         headerToolbar: { start: 'prev,next today', center: 'title', end:''},
         select: createEventWithPointer,
         eventClick: getCurrentEventClicked,
-        
-        //events: 
+        events: getArrayOfEventsFromDatabase()
     };
     
     function formatDateTime(date){
@@ -28,6 +28,16 @@
         
        return formatedDate;
 
+    }
+    function formatEventObject(event){
+        const eventObj = {
+            start: event.Event_Start,
+            end: event.Event_End,
+            title: event.Event_Title,
+            color: event.Event_Colour
+        };
+
+        return eventObj;
     }
     function createEventWithPointer(info) { 
         let timeStart= formatDateTime(info.start); 
@@ -53,6 +63,20 @@
         ec.removeEventById(eventSelected.event.id);
     }
 
+    function getArrayOfEventsFromDatabase(){
+        let eventsJson = data.post.results;
+        let eventObjects = [];
+        for(let i = 0; i<eventsJson.length; i++){
+            
+            eventObjects.push(formatEventObject(eventsJson[i]))
+        }
+        return eventObjects;
+    }
+    
+
+    
+
+    //setInterval(saveAllEventsIntoDatabase,1000);
 function getRandomHexColor() {
     return "#"+Math.floor(Math.random()*16777215).toString(16);
 }
