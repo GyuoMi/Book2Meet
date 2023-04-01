@@ -3,39 +3,77 @@
     import TimeGrid from '@event-calendar/time-grid';
     import '@event-calendar/core/index.css';
     import Interaction from '@event-calendar/interaction'
-
-    let text;
+    
+    
+    let ec;
+    let eventSelected;
     let plugins = [TimeGrid,Interaction];
     let options = {
         view: 'timeGridWeek',
         allDaySlot: false,
         pointer: true,
         selectable: true,
+        unselectAuto: true,
         nowIndicator: true,
+        height: "800px",
         headerToolbar: { start: 'prev,next today', center: 'title', end:''},
-        events: createEvents(),
+        select: createEventWithPointer,
+        eventClick: getCurrentEventClicked,
+        
+        //events: 
     };
-function createEvents() { 
-    let days = []; 
-    for (let i = 0; i < 7; ++i) { 
-	    let day = new Date(); 
-	    let diff = i - day.getDay(); 
-	    day.setDate(day.getDate() + diff); 
-	    days[i] = day.getFullYear() + "-" + _pad(day.getMonth()+1) + "-" +_pad(day.getDate()); 
-	}  
-    return [
-    {
-        start: days[5] + " 18:00", 
-        end: days[5] + " 21:00", 
-        resourceId: 2, 
-        title: "", 
-        color: "#B29DD9"}, 
-     ]; 
-}
+    
+    function formatDateTime(date){
+       let formatedDate = date.getFullYear() + "-" + _pad(date.getMonth()+1) + "-" +_pad(date.getDate()) + " "+date.getHours()+":"+date.getMinutes(); 
+        
+       return formatedDate;
 
+    }
+    function createEventWithPointer(info) { 
+        let timeStart= formatDateTime(info.start); 
+
+        let timeEnd = formatDateTime(info.end); 
+        
+        ec.addEvent(
+        {
+            start: timeStart,
+            end: timeEnd,
+            title: "Availiable for Appointment",
+            color: getRandomHexColor()
+        })
+    }
+    function getCurrentEventClicked(info){
+       eventSelected = info;
+       
+    }
+
+
+    function deleteEventFromCalender(){
+        console.log(eventSelected);
+        ec.removeEventById(eventSelected.event.id);
+    }
+
+function getRandomHexColor() {
+    return "#"+Math.floor(Math.random()*16777215).toString(16);
+}
+    /*
+    example of what data needs to be in the event object. 
+    {
+        
+        start: days[5] + " 10:00", 
+        end: days[5] + " 16:00", 
+        resourceId: 2, titleHTML: "You have complete control over the <i><b>display</b></i> of events…", 
+        color: "#779ECB"
+    }*/ 
     function _pad(num) { 
         let norm = Math.floor(Math.abs(num)); 
         return (norm < 10 ? '0' : '') + norm; 
     } 
 </script>
-<Calendar {plugins} {options} />
+
+
+<Calendar bind:this={ec} {plugins} {options} />
+
+<div class="flex flex-col items-center ">
+    <button on:click={deleteEventFromCalender} class="btn btn-primary place-item-center">Delete Event</button>
+</div>
