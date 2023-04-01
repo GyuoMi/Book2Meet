@@ -5,20 +5,23 @@
     let password = '';
     let confirmPassword = '';
     let email = '';
-    let names = '';
+    let Fname = '';
+    let Lname = '';
     let message = '';
       
     let emailError = '';
     let passwordError = '';
     let confirmPasswordError = '';
-    let namesError = '';
+    let FnameError = '';
+    let LnameError = '';
     let formErrorMessage='';
 
     let isFormValid = false;
     let passwordValid = false;
     let confirmPasswordValid =false;
     let emailValid = false;
-    let nameValid = false;
+    let FnameValid = false;
+    let LnameValid = false;
 
     function checkPasswords() {
       if (password !== confirmPassword) {
@@ -86,7 +89,7 @@
   });
 
   function handleSubmit() {
-    isFormValid = email.trim() !== '' && password.trim() !== '' && confirmPassword.trim() !== '';
+    isFormValid = email.trim() !== '' && password.trim() !== '' && confirmPassword.trim() !== '' && Lname.trim() !== '' && Fname.trim() !== '';
     
 
     if (!isFormValid) {
@@ -118,24 +121,47 @@
     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100" style="position:absolute; top:190px; left:147px">
       <div class="card-body">
         
-        <div class="form-control">
+        <div class="form-control" style="width:43%">
           <label class="label">
-            <span class="label-text text-primary">Names</span>
+            <span class="label-text text-primary">First Name</span>
           </label>
-          <input type="names" 
-                 placeholder="John Snow" 
+          <input type="First name" 
+                 placeholder="John" 
                  class="input input-bordered" 
-                 bind:value={names} 
+                 bind:value={Fname} 
                  on:blur={() => {
-                  if (names.trim() === '') {
-                    namesError = 'Please fill in all the required fiels';
+                  if (Fname.trim() === '') {
+                    FnameError = 'Please fill in all the required fiels';
                     }else {
-                       namesError = '';
-                       nameValid = true;
+                       FnameError = '';
+                       FnameValid = true;
                     }
                 }}/>
-                {#if namesError}
-                <p class="text-red-600 text-sm">{namesError}</p>
+                {#if FnameError}
+                <p class="text-red-600 text-sm">{FnameError}</p>
+                {/if}
+                 
+            
+        </div>
+
+        <div class="form-control" style="position:absolute;width: 43%; top:32px; left:190px;">
+          <label class="label">
+            <span class="label-text text-primary">Last Name</span>
+          </label>
+          <input type="names" 
+                 placeholder="Snow" 
+                 class="input input-bordered" 
+                 bind:value={Lname} 
+                 on:blur={() => {
+                  if (Lname.trim() === '') {
+                    LnameError = 'Please fill in all the required fiels';
+                    }else {
+                       LnameError = '';
+                       LnameValid = true;
+                    }
+                }}/>
+                {#if LnameError}
+                <p class="text-red-600 text-sm">{LnameError}</p>
                 {/if}
                  
             
