@@ -17,9 +17,17 @@ export async function load({ params }) {
 export const actions = {
 	saveDatabaseEvents: async ({ request }) => {
 		const event = await request.formData();
-    event.get()
-		console.log(event[Symbol]);
-		/*
-    database.changeDataInDatabase("INSERT INTO Event VALUES (?,?,?,?,?,?)".concat(event.id,event.start,event.end,event.title,event.color,1));*/
-	}
+		const eventListJson = JSON.parse(event.get('eventArray'));
+		let client = 1
+		await database.mysqlconn.query("Delete FROM Event where ClientID = 1");
+    	
+		for(let i = 0; i < eventListJson.length; i++){
+      let event = eventListJson[i];
+	  
+
+      await database.mysqlconn.query("INSERT INTO Event (Event_Start,Event_End,Event_Title,Event_Colour,ClientID) VALUES (?,?,?,?,?)",[event.start,event.end,event.title,event.backgroundColor,client]);
+
+    }
+  }
+  
 };

@@ -3,8 +3,12 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
+
 	/** @type {import('./$types').PageServerLoad} */
 	export let data;
+
+	/** @type {import('./$types').ActionData} */
+	export let form;
 
 	let ec;
 	let eventSelected;
@@ -76,9 +80,9 @@
 		}
 		return eventObjects;
 	}
-
+	let allEvents;
 	function returnAllEventsFromCaleder() {
-		return ec.getEvents();
+		allEvents = JSON.stringify(ec.getEvents());
 	}
 
 	//setInterval(saveAllEventsIntoDatabase,1000);
@@ -107,8 +111,10 @@
 		>Delete Event</button
 	>
 </div>
+
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
+		<input type="hidden" name="eventArray" bind:value={allEvents} />
 		<button on:click={returnAllEventsFromCaleder} class="btn btn-secondary place-item-center"
 			>Save Events</button
 		>
