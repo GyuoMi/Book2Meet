@@ -20,7 +20,6 @@ export async function changeDataInDatabase(query) {
 	await mysqlconn.query(query);
 }
 
-
 export default {
 	changeDataInDatabase,
 	getJsonFromSelectQuery,

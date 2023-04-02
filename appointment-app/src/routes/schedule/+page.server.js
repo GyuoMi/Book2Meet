@@ -18,16 +18,16 @@ export const actions = {
 	saveDatabaseEvents: async ({ request }) => {
 		const event = await request.formData();
 		const eventListJson = JSON.parse(event.get('eventArray'));
-		let client = 1
-		await database.mysqlconn.query("Delete FROM Event where ClientID = 1");
-    	
-		for(let i = 0; i < eventListJson.length; i++){
-      let event = eventListJson[i];
-	  
+		let client = 1;
+		await database.mysqlconn.query('Delete FROM Event where ClientID = 1');
 
-      await database.mysqlconn.query("INSERT INTO Event (Event_Start,Event_End,Event_Title,Event_Colour,ClientID) VALUES (?,?,?,?,?)",[event.start,event.end,event.title,event.backgroundColor,client]);
+		for (let i = 0; i < eventListJson.length; i++) {
+			let event = eventListJson[i];
 
-    }
-  }
-  
+			await database.mysqlconn.query(
+				'INSERT INTO Event (Event_Start,Event_End,Event_Title,Event_Colour,ClientID) VALUES (?,?,?,?,?)',
+				[event.start, event.end, event.title, event.backgroundColor, client]
+			);
+		}
+	}
 };
