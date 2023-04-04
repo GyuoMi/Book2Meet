@@ -2,6 +2,9 @@
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
 
+  /** @type {import('./$types').ActionData} */  
+  export let form;
+
 	let password = '';
 	let confirmPassword = '';
 	let email = '';
@@ -96,6 +99,7 @@
 		}
 		return;
 	}
+
 </script>
 
 <!-- 
@@ -118,192 +122,205 @@
 			class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
 			style="position:absolute; top:190px; left:147px"
 		>
-			<div class="card-body">
-				<div class="form-control" style="width:43%">
-					<label class="label">
-						<span class="label-text text-primary">First Name</span>
-					</label>
-					<input
-						type="First name"
-						placeholder="John"
-						class="input input-bordered"
-						bind:value={Fname}
-						on:blur={() => {
-							if (Fname.trim() === '') {
-								FnameError = 'Please fill in all the required fiels';
-							} else {
-								FnameError = '';
-								FnameValid = true;
-							}
-						}}
-					/>
-					{#if FnameError}
-						<p class="text-red-600 text-sm">{FnameError}</p>
-					{/if}
-				</div>
+			<form method="POST" action="?/signup">
+				<div class="card-body">
+					<div class="form-control" style="width:43%">
+						<label class="label">
+							<span class="label-text text-primary">First Name</span>
+						</label>
+						<input
+							type="First name"
+							placeholder="John"
+							class="input input-bordered"
+							name="firstName"
+							bind:value={Fname}
+							on:blur={() => {
+								if (Fname.trim() === '') {
+									FnameError = 'Please fill in all the required fiels';
+								} else {
+									FnameError = '';
+									FnameValid = true;
+								}
+							}}
+						/>
+						{#if FnameError}
+							<p class="text-red-600 text-sm">{FnameError}</p>
+						{/if}
+					</div>
 
-				<div class="form-control" style="position:absolute;width: 43%; top:32px; left:190px;">
-					<label class="label">
-						<span class="label-text text-primary">Last Name</span>
-					</label>
-					<input
-						type="names"
-						placeholder="Snow"
-						class="input input-bordered"
-						bind:value={Lname}
-						on:blur={() => {
-							if (Lname.trim() === '') {
-								LnameError = 'Please fill in all the required fiels';
-							} else {
-								LnameError = '';
-								LnameValid = true;
-							}
-						}}
-					/>
-					{#if LnameError}
-						<p class="text-red-600 text-sm">{LnameError}</p>
-					{/if}
-				</div>
+					<div class="form-control" style="position:absolute;width: 43%; top:32px; left:190px;">
+						<label class="label">
+							<span class="label-text text-primary">Last Name</span>
+						</label>
+						<input
+							type="names"
+							placeholder="Snow"
+							class="input input-bordered"
+							name="lastName"
+							bind:value={Lname}
+							on:blur={() => {
+								if (Lname.trim() === '') {
+									LnameError = 'Please fill in all the required fiels';
+								} else {
+									LnameError = '';
+									LnameValid = true;
+								}
+							}}
+						/>
+						{#if LnameError}
+							<p class="text-red-600 text-sm">{LnameError}</p>
+						{/if}
+					</div>
 
-				<!--
+					<!--
   Email field
 -->
 
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Email Address</span>
-					</label>
-					<input
-						type="email"
-						placeholder="john.snow@gmail.com"
-						class="input input-bordered"
-						bind:value={email}
-						on:input={() => {
-							if (!emailPattern.test(email)) {
-								emailError = 'Invalid email address';
-							} else {
-								emailError = '';
-								emailValid = true;
-							}
-						}}
-					/>
-					{#if emailError}
-						<p class="text-red-600 text-sm">{emailError}</p>
-					{/if}
-				</div>
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text text-primary">Email Address</span>
+						</label>
+						<input
+							type="email"
+							placeholder="john.snow@gmail.com"
+							class="input input-bordered"
+							name="email"
+							bind:value={email}
+							on:input={() => {
+								if (!emailPattern.test(email)) {
+									emailError = 'Invalid email address';
+								} else {
+									emailError = '';
+									emailValid = true;
+								}
+							}}
+						/>
+						{#if emailError}
+							<p class="text-red-600 text-sm">{emailError}</p>
+						{/if}
+					</div>
 
-				<!--
+					<!--
   Password fields
 -->
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Password</span>
-					</label>
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text text-primary">Password</span>
+						</label>
 
-					{#if showPassword}
-						<input
-							type="text"
-							class="input input-bordered"
-							placeholder="Password"
-							on:blur={getPasswordStrength}
-							bind:value={password}
-						/>
-					{:else}
-						<input
-							type="password"
-							placeholder="Password"
-							class="input input-bordered"
-							bind:value={password}
-							on:blur={getPasswordStrength}
-						/>
-					{/if}
+						{#if showPassword}
+							<input
+								type="text"
+								class="input input-bordered"
+								placeholder="Password"
+								name="password"
+								on:blur={getPasswordStrength}
+								bind:value={password}
+							/>
+						{:else}
+							<input
+								type="password"
+								placeholder="Password"
+								class="input input-bordered"
+								name="password"
+								bind:value={password}
+								on:blur={getPasswordStrength}
+							/>
+						{/if}
 
-					<button
-						class=" text-stone-300"
-						style="position:relative; bottom:35px; left:275px; width:45px"
-						type="button"
-						on:click={toggleShowPassword}
-					>
-						<i class={showPassword ? 'far fa-eye-slash' : 'far fa-eye-slash'} />
-					</button>
+						<button
+							class=" text-stone-300"
+							style="position:relative; bottom:35px; left:275px; width:45px"
+							type="button"
+							on:click={toggleShowPassword}
+						>
+							<i class={showPassword ? 'far fa-eye-slash' : 'far fa-eye-slash'} />
+						</button>
 
-					{#if passwordStrengthText != 'Password is strong'}
-						<div class="text-sm text-red-600" style="position:relative; bottom:22px; left:4px">
-							{passwordStrengthText}
-						</div>
-					{:else}
-						<div class="text-sm text-green-600" style="position:relative; bottom:22px; left:4px">
-							{passwordStrengthText}
-						</div>
-					{/if}
-				</div>
-
-				<!--
+						{#if passwordStrengthText != 'Password is strong'}
+							<div class="text-sm text-red-600" style="position:relative; bottom:22px; left:4px">
+								{passwordStrengthText}
+							</div>
+						{:else}
+							<div class="text-sm text-green-600" style="position:relative; bottom:22px; left:4px">
+								{passwordStrengthText}
+							</div>
+						{/if}
+					</div>
+					<!--
   Confirm password fields
 -->
-				<div class="form-control" style="position:relative; bottom:24px;px">
-					<label class="label">
-						<span class="label-text text-primary">Confirm Password</span>
-					</label>
-					<input
-						type="text"
-						placeholder="Repeat Password"
-						class="input input-bordered"
-						bind:value={confirmPassword}
-						on:input={() => {
-							if (confirmPassword !== password) {
-								confirmPasswordError = 'Passwords do not match';
-							} else {
-								confirmPasswordError = '';
-								confirmPasswordValid = true;
-							}
-						}}
-					/>
-					{#if confirmPasswordError}
-						<p class="text-sm text-red-600">{confirmPasswordError}</p>
-					{/if}
-				</div>
+					<div class="form-control" style="position:relative; bottom:24px;px">
+						<label class="label">
+							<span class="label-text text-primary">Confirm Password</span>
+						</label>
+						<input
+							type="text"
+							placeholder="Repeat Password"
+							class="input input-bordered"
+							bind:value={confirmPassword}
+							on:input={() => {
+								if (confirmPassword !== password) {
+									confirmPasswordError = 'Passwords do not match';
+								} else {
+									confirmPasswordError = '';
+									confirmPasswordValid = true;
+								}
+							}}
+						/>
+						{#if confirmPasswordError}
+							<p class="text-sm text-red-600">{confirmPasswordError}</p>
+						{/if}
+					</div>
 
-				<div class="error-message">
-					{#if formErrorMessage}
-						<div class="alert alert-error shadow-lg mt-0" style="height:20px">
-							<div>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-current flex-shrink-0 h-6 w-6"
-									fill="none"
-									viewBox="0 0 24 24"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-									/></svg
-								>
-								<span style="font-size: 14px;">Please fill in all the required fields.</span>
+					<div class="error-message">
+						{#if formErrorMessage}
+							<div class="alert alert-error shadow-lg mt-0" style="height:20px">
+								<div>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-current flex-shrink-0 h-6 w-6"
+										fill="none"
+										viewBox="0 0 24 24"
+										><path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+										/></svg
+									>
+									<span style="font-size: 14px;">Please fill in all the required fields.</span>
+								</div>
 							</div>
-						</div>
-					{/if}
-				</div>
+						{/if}
+					</div>
 
-				<div class="form-control mt-6">
-					<a
-						href={emailValid && passwordValid && confirmPasswordValid ? '/login' : '#'}
-						class="btn btn-primary"
-						on:click={handleClick}>SIGN UP</a
-					>
+					<div class="form-control mt-6">
+						<button  formaction="?/signup" class="btn btn-primary">
+								<a
+								href={emailValid && passwordValid && confirmPasswordValid ? '/login' : '#'}
+								on:click={handleClick}>SIGN UP</a
+							>
+							
+							
+						</button>
+					</div>
+					
+					<form />
+
+					<label class="label">
+						<span class="label-text" style="position:absolute; left:85px; bottom:30px"
+							>Already have an account?</span
+						>
+						<a
+							href="/login"
+							class="label-text-alt link link-primary link-hover underline"
+							style="position:absolute; left:244px; bottom:31px">LOG IN!</a
+						>
+					</label>
 				</div>
-				<label class="label">
-					<span class="label-text" style="position:absolute; left:85px; bottom:30px"
-						>Already have an account?</span
-					>
-					<a
-						href="/login"
-						class="label-text-alt link link-primary link-hover underline"
-						style="position:absolute; left:244px; bottom:31px">LOG IN!</a
-					>
-				</label>
-			</div>
+				<!--????? don't touch for now but change later-->
+			</form>
 		</div>
 	</div>
 
@@ -399,5 +416,7 @@
 		</div>
 	</div>
 </footer>
+
+
 
 <slot />
