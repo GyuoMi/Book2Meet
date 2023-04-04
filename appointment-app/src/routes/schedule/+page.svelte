@@ -24,41 +24,21 @@
 		headerToolbar: { start: 'prev,next today', center: 'title', end: '' },
 		select: createEventWithPointer,
 		eventClick: getCurrentEventClicked,
-		events: getArrayOfEventsFromDatabase()
+		events: getArrayOfEventsFromDatabase(),
 	};
-
-	function formatDateTime(date) {
-		let formatedDate =
-			date.getFullYear() +
-			'-' +
-			_pad(date.getMonth() + 1) +
-			'-' +
-			_pad(date.getDate()) +
-			' ' +
-			date.getHours() +
-			':' +
-			date.getMinutes();
-
-		return formatedDate;
-	}
 	function formatEventObject(event) {
 		const eventObj = {
-			start: event.Event_Start,
-			end: event.Event_End,
-			title: event.Event_Title,
-			color: event.Event_Colour
+			start: event.EVENT_START,
+			end: event.EVENT_END,
+			title: event.EVENT_TITLE,
+			color: event.EVENT_COLOR
 		};
-
 		return eventObj;
 	}
-	function createEventWithPointer(info) {
-		let timeStart = formatDateTime(info.start);
-
-		let timeEnd = formatDateTime(info.end);
-
+	function createEventWithPointer(event) {
 		ec.addEvent({
-			start: timeStart,
-			end: timeEnd,
+			start: event.start,
+			end: event.end,
 			title: 'Availiable for Appointment',
 			color: getRandomHexColor()
 		});
@@ -80,24 +60,28 @@
 		}
 		return eventObjects;
 	}
+
 	let allEvents;
-	function returnAllEventsFromCaleder() {
-		allEvents = JSON.stringify(ec.getEvents());
+
+	function returnAllEventsFromCaledar() {
+		let eventsFromCalendar = ec.getEvents();
+		let updatedEventsFromcalendar = [];
+		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
+		for(let i = 0; i<eventsFromCalendar.length; i++){
+			let event = eventsFromCalendar[i];
+			event.start.setHours(event.start.getHours()+2);
+			event.end.setHours(event.end.getHours() +2);
+
+			updatedEventsFromcalendar.push(event);
+		}
+		allEvents = JSON.stringify(updatedEventsFromcalendar);
+		
 	}
 
 	//setInterval(saveAllEventsIntoDatabase,1000);
 	function getRandomHexColor() {
 		return '#' + Math.floor(Math.random() * 16777215).toString(16);
 	}
-	/*
-    example of what data needs to be in the event object. 
-    {
-        
-        start: days[5] + " 10:00", 
-        end: days[5] + " 16:00", 
-        resourceId: 2, titleHTML: "You have complete control over the <i><b>display</b></i> of events…", 
-        color: "#779ECB"
-    }*/
 	function _pad(num) {
 		let norm = Math.floor(Math.abs(num));
 		return (norm < 10 ? '0' : '') + norm;
@@ -115,7 +99,7 @@
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
 		<input type="hidden" name="eventArray" bind:value={allEvents} />
-		<button on:click={returnAllEventsFromCaleder} class="btn btn-secondary place-item-center"
+		<button on:click={returnAllEventsFromCaledar} class="btn btn-secondary place-item-center"
 			>Save Events</button
 		>
 	</div>

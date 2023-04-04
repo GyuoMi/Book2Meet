@@ -2,10 +2,12 @@ import database from '../api/database.js';
 
 /** @type {import('./$types').PageServerLoad} */
 
+let client = 1;
+
 export async function load({ params }) {
-	//change when login has been implemented
+	
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
-		'Select * from Event where ClientID = 1'
+		`Select * from EVENT_TBL where CLIENT_ID = ${client}`
 	);
 
 	return {
@@ -18,14 +20,12 @@ export const actions = {
 	saveDatabaseEvents: async ({ request }) => {
 		const event = await request.formData();
 		const eventListJson = JSON.parse(event.get('eventArray'));
-		let client = 1;
-		await database.mysqlconn.query('Delete FROM Event where ClientID = 1');
+		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?',client);
 
 		for (let i = 0; i < eventListJson.length; i++) {
 			let event = eventListJson[i];
-
 			await database.mysqlconn.query(
-				'INSERT INTO Event (Event_Start,Event_End,Event_Title,Event_Colour,ClientID) VALUES (?,?,?,?,?)',
+				'INSERT INTO EVENT_TBL (EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR,CLIENT_ID) VALUES (?,?,?,?,?)',
 				[event.start, event.end, event.title, event.backgroundColor, client]
 			);
 		}
