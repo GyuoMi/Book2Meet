@@ -1,6 +1,8 @@
 import database from '../api/database';
 import { redirect } from '@sveltejs/kit';
 
+export let _clientID;
+
 /** @type {import('./$types').Actions} */
 export const actions = {
 	login: async ({ request }) => {
@@ -13,7 +15,7 @@ export const actions = {
 		
 		if (clientData.results.length >0){
 			if (password == clientData.results[0].CLIENT_PASSWORD){
-			 console.log("pass")
+			 _clientID = clientData.results[0].CLIENT_ID;
 			 throw redirect(303,'/schedule');
 			
 		}
