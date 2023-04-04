@@ -1,8 +1,8 @@
 <script>
-	import '../app.css';
+  import '../app.css';
 </script>
 
-<html data-theme="autumn" />
+<html data-theme="autumn"></html>
 
 <div class="navbar bg-base-100">
   <div class="flex-none">
@@ -34,4 +34,4 @@
     
   </div>
 </div>
-<slot />
+<slot/>
