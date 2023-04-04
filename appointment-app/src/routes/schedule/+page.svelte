@@ -24,7 +24,7 @@
 		headerToolbar: { start: 'prev,next today', center: 'title', end: '' },
 		select: createEventWithPointer,
 		eventClick: getCurrentEventClicked,
-		events: getArrayOfEventsFromDatabase(),
+		events: getArrayOfEventsFromDatabase()
 	};
 	function formatEventObject(event) {
 		const eventObj = {
@@ -67,15 +67,14 @@
 		let eventsFromCalendar = ec.getEvents();
 		let updatedEventsFromcalendar = [];
 		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
-		for(let i = 0; i<eventsFromCalendar.length; i++){
+		for (let i = 0; i < eventsFromCalendar.length; i++) {
 			let event = eventsFromCalendar[i];
-			event.start.setHours(event.start.getHours()+2);
-			event.end.setHours(event.end.getHours() +2);
+			event.start.setHours(event.start.getHours() + 2);
+			event.end.setHours(event.end.getHours() + 2);
 
 			updatedEventsFromcalendar.push(event);
 		}
 		allEvents = JSON.stringify(updatedEventsFromcalendar);
-		
 	}
 
 	//setInterval(saveAllEventsIntoDatabase,1000);
@@ -90,7 +89,7 @@
 
 <Calendar bind:this={ec} {plugins} {options} />
 
-<div class="flex flex-col items-center ">
+<div class="flex flex-col items-center">
 	<button on:click={deleteEventFromCalender} class="btn btn-primary place-item-center"
 		>Delete Event</button
 	>

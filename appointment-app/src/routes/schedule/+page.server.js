@@ -5,7 +5,6 @@ import database from '../api/database.js';
 let client = 1;
 
 export async function load({ params }) {
-	
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
 		`Select * from EVENT_TBL where CLIENT_ID = ${client}`
 	);
@@ -20,7 +19,7 @@ export const actions = {
 	saveDatabaseEvents: async ({ request }) => {
 		const event = await request.formData();
 		const eventListJson = JSON.parse(event.get('eventArray'));
-		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?',client);
+		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?', client);
 
 		for (let i = 0; i < eventListJson.length; i++) {
 			let event = eventListJson[i];
