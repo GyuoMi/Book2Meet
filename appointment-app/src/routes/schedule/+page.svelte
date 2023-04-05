@@ -16,7 +16,7 @@
 	let ec;
 	let currentEventSelected;
 	let allEvents;
-	 
+
 	let plugins = [TimeGrid, Interaction];
 	let options = {
 		view: 'timeGridWeek',
@@ -31,7 +31,7 @@
 		/*takes in a callback function and passes in the event object that is clicked*/
 		select: createEventWithPointer,
 		eventClick: getCurrentEventClicked,
-		
+
 		/*events takes in an array of event objects and add them to the calendar*/
 		events: getArrayOfEventsFromDatabase()
 	};
@@ -57,11 +57,11 @@
 		});
 	}
 
-	/*purpose is to save the last clicked event so user can press the delete button if necessary. Deleting the last item clicked.*/		
+	/*purpose is to save the last clicked event so user can press the delete button if necessary. Deleting the last item clicked.*/
 	function getCurrentEventClicked(event) {
 		currentEventSelected = event;
 	}
-	
+
 	function deleteEventFromCalender() {
 		ec.removeEventById(currentEventSelected.event.id);
 	}
@@ -97,7 +97,6 @@
 	function getRandomHexColor() {
 		return '#' + Math.floor(Math.random() * 16777215).toString(16);
 	}
-
 </script>
 
 <Calendar bind:this={ec} {plugins} {options} />

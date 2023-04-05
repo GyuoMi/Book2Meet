@@ -28,7 +28,7 @@ export const actions = {
 		const eventListJson = JSON.parse(event.get('eventArray'));
 
 		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?', _clientID);
-		
+
 		for (let i = 0; i < eventListJson.length; i++) {
 			let event = eventListJson[i];
 			await database.mysqlconn.query(
