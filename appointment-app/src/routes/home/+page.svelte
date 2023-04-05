@@ -1,6 +1,6 @@
 
 
-  <div class="flex items-center justify-center h-screen">  
+<div class="flex items-center justify-center h-screen">  
     <h1 class="absolute top-32 text-3xl font-bold ">HOME</h1>
     
     <div class="card w-96 bottom-32 left-1 bg-base-100 shadow-xl">

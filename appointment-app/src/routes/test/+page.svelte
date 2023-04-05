@@ -1,7 +1,5 @@
 <script>
 
-
-
     let password = '';
     let confirmPassword = '';
     let message = '';
