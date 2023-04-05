@@ -3,8 +3,6 @@ import database from '../api/database.js';
 import { _clientID } from '../login/+page.server.js';
 /** @type {import('./$types').PageServerLoad} */
 
-
-
 export async function load({ params }) {
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
 		`Select * from EVENT_TBL where CLIENT_ID = ${_clientID}`
