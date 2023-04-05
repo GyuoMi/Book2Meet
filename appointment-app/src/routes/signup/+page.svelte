@@ -297,10 +297,11 @@
 
 					<div class="form-control mt-6">
 						<button  formaction="?/signup" class="btn btn-primary">
-								<a
+							Sign Up
+								<!-- <a
 								href={emailValid && passwordValid && confirmPasswordValid ? '/login' : '#'}
 								on:click={handleClick}>SIGN UP</a
-							>
+							> -->
 							
 							
 						</button>
