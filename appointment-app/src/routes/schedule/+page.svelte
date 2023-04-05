@@ -4,14 +4,19 @@
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
 
+	/*Documentation of the underlying calendar library can be found at https://github.com/vkurko/calendar. Comments below describe how it was implemented into the project.*/
+
 	/** @type {import('./$types').PageServerLoad} */
 	export let data;
 
 	/** @type {import('./$types').ActionData} */
 	export let form;
 
+	//ec is an object that is bound to the calendar that allows us to calls functions provided by the calendar library.
 	let ec;
-	let eventSelected;
+	let currentEventSelected;
+	let allEvents;
+
 	let plugins = [TimeGrid, Interaction];
 	let options = {
 		view: 'timeGridWeek',
@@ -22,10 +27,16 @@
 		nowIndicator: true,
 		height: '800px',
 		headerToolbar: { start: 'prev,next today', center: 'title', end: '' },
+
+		/*takes in a callback function and passes in the event object that is clicked*/
 		select: createEventWithPointer,
 		eventClick: getCurrentEventClicked,
+
+		/*events takes in an array of event objects and add them to the calendar*/
 		events: getArrayOfEventsFromDatabase()
 	};
+
+	/*the key values for the event objects returned from the database.js file uses the database naming format for the keys which is all caps, the scheduling library that we're can only read key values in a certain format. So we have to add a conversion.*/
 	function formatEventObject(event) {
 		const eventObj = {
 			start: event.EVENT_START,
@@ -35,6 +46,8 @@
 		};
 		return eventObj;
 	}
+
+	/*callback function which is sent to the schedule library. When a selection is made on the calendar, they don't show events on the calendar but just return the event object containing the details of the selection. select calls the createEventWithPointer function passing in the event object, which we then add to the caledar.*/
 	function createEventWithPointer(event) {
 		ec.addEvent({
 			start: event.start,
@@ -43,15 +56,17 @@
 			color: getRandomHexColor()
 		});
 	}
-	function getCurrentEventClicked(info) {
-		eventSelected = info;
+
+	/*purpose is to save the last clicked event so user can press the delete button if necessary. Deleting the last item clicked.*/
+	function getCurrentEventClicked(event) {
+		currentEventSelected = event;
 	}
 
 	function deleteEventFromCalender() {
-		console.log(eventSelected);
-		ec.removeEventById(eventSelected.event.id);
+		ec.removeEventById(currentEventSelected.event.id);
 	}
 
+	/*following code parses events for a user returned by the database.js file. Formats each event and returns an event Object array which the calendar library can take in and add each event into the calendar*/
 	function getArrayOfEventsFromDatabase() {
 		let eventsJson = data.post.results;
 		let eventObjects = [];
@@ -61,8 +76,9 @@
 		return eventObjects;
 	}
 
-	let allEvents;
+	/*will return a string of all events objects currently on the calendar, this is done so it can be bound to an <input bind:value=someVal> and sent through a <form> to the backend +page.server.js. We bind final string value to the allEvents variable which is then bound to the <input>.
 
+		you might notice that 2 hours are added to each events start and end time, this was due to a bug which shifted the time of each event back 2 hours */
 	function returnAllEventsFromCaledar() {
 		let eventsFromCalendar = ec.getEvents();
 		let updatedEventsFromcalendar = [];
@@ -77,24 +93,22 @@
 		allEvents = JSON.stringify(updatedEventsFromcalendar);
 	}
 
-	//setInterval(saveAllEventsIntoDatabase,1000);
+	/*used to assign a random hex color to events on the calendar*/
 	function getRandomHexColor() {
 		return '#' + Math.floor(Math.random() * 16777215).toString(16);
-	}
-	function _pad(num) {
-		let norm = Math.floor(Math.abs(num));
-		return (norm < 10 ? '0' : '') + norm;
 	}
 </script>
 
 <Calendar bind:this={ec} {plugins} {options} />
 
+<!--Delete button-->
 <div class="flex flex-col items-center">
 	<button on:click={deleteEventFromCalender} class="btn btn-primary place-item-center"
 		>Delete Event</button
 	>
 </div>
 
+<!--makes up the Save Events button, form used to send all events currently on the calendar to the backend to be saved into the calendar.-->
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
 		<input type="hidden" name="eventArray" bind:value={allEvents} />
