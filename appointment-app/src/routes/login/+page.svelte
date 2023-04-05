@@ -47,7 +47,7 @@
 		<!--
   Email field
 -->
-
+<form method="POST" action="?/login">
 		<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 			<div class="card-body">
 				<div class="form-control">
@@ -57,6 +57,7 @@
 					<input
 						type="text"
 						placeholder="john.snow@gmail.com"
+						name="email"
 						class="input input-bordered"
 						bind:value={email}
 						on:input={() => {
@@ -76,7 +77,7 @@
 					<label class="label">
 						<span class="label-text text-primary">Password</span>
 					</label>
-					<input type="text" placeholder="Password" class="input input-bordered" />
+					<input type="text" name="password" placeholder="Password" class="input input-bordered" />
 					<label class="label">
 						<a href="#" class="label-text-alt link link-hover">Forgot password?</a>
 					</label>
@@ -105,9 +106,14 @@
 				</div>
 
 				<div class="form-control mt-6">
-					<a href={emailValid ? '/schedule' : '#'} class="btn btn-primary" on:click={handleClick}
+					<button class="btn btn-primary">
+						login
+						<!--
+							<a href={emailValid ? '/schedule' : '#'} on:click={handleClick}
 						>Login</a
 					>
+						-->
+					<button/>
 				</div>
 
 				<label class="label">
@@ -124,7 +130,7 @@
 		</div>
 	</div>
 </div>
-
+<form/>
 <!-- 
    Footer
 -->
