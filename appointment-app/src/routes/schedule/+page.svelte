@@ -9,8 +9,6 @@
 	/** @type {import('./$types').PageServerLoad} */
 	export let data;
 
-	/** @type {import('./$types').ActionData} */
-	export let form;
 
 	//ec is an object that is bound to the calendar that allows us to calls functions provided by the calendar library.
 	let ec;
@@ -79,7 +77,7 @@
 	/*will return a string of all events objects currently on the calendar, this is done so it can be bound to an <input bind:value=someVal> and sent through a <form> to the backend +page.server.js. We bind final string value to the allEvents variable which is then bound to the <input>.
 
 		you might notice that 2 hours are added to each events start and end time, this was due to a bug which shifted the time of each event back 2 hours */
-	function returnAllEventsFromCaledar() {
+	function getAllEventsFromCalendar() {
 		let eventsFromCalendar = ec.getEvents();
 		let updatedEventsFromcalendar = [];
 		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
@@ -112,7 +110,7 @@
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
 		<input type="hidden" name="eventArray" bind:value={allEvents} />
-		<button on:click={returnAllEventsFromCaledar} class="btn btn-secondary place-item-center"
+		<button on:click={getAllEventsFromCalendar} class="btn btn-secondary place-item-center"
 			>Save Events</button
 		>
 	</div>
