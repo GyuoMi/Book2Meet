@@ -26,8 +26,11 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: "Run Tests"
+          name: "Run playwright tests"
           command: npm run test
+      - run:
+          name: "Run vitest unit tests"
+          command: npm run unit:test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
