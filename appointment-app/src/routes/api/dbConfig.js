@@ -1,6 +1,5 @@
 import mysql from 'mysql2/promise'
 const { Client } = require('ssh2');
-import Client from 'ssh2'
 
 // define connection config for the database
 const dbServer = {
