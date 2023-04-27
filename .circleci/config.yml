@@ -30,7 +30,7 @@ jobs:
           command: npm run test
       - run:
           name: "Run vitest unit tests"
-          command: npm run unit:test
+          command: npm run test:unit
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
