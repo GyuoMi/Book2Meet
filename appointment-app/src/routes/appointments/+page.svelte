@@ -7,7 +7,6 @@
  /** @type {import('./$types').ActionData} */    
   export let form;
 
-  let eventsFromClient;
   let ec;
   let plugins = [TimeGrid, Interaction];
 	let options = {
@@ -21,7 +20,6 @@
 		headerToolbar: { start: 'prev,next today', center: 'title', end: '' },
     events: getArrayOfEventsFromDatabase(form)
   }
-   
 </script>
 
 <form method="POST" action="?/getSearchedEmailEvents">

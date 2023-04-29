@@ -12,15 +12,16 @@ export function convertJsonToEventObject(event) {
 
 /*following code parses events for a user returned by the database.js file. Formats each event and returns an event Object array which the calendar library can take in and add each event into the calendar*/
 export function getArrayOfEventsFromDatabase(data) {
+  
   if(data == null){
     return [];
   }
 		let eventsJson = data.post.results;
 		let eventObjects = [];
-  if (eventsJson['EVENT_ID'] == null){
+  if (eventsJson[0]['EVENT_ID'] == null){
     return [];
   }
-		for (let i = 0; i < eventsJson.length; i++) {
+		for (let i = 0; i < eventsJson.length; i++) { 
 			eventObjects.push(convertJsonToEventObject(eventsJson[i]));
 		}
 		return eventObjects;
