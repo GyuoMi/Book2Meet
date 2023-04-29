@@ -3,7 +3,7 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
-  import {convertJsonToEventObject} from './page.modules';
+  import {getAllEventsFromCalendarAsJson,deleteEventFromCalender,getRandomHexColor,getArrayOfEventsFromDatabase} from './page.modules.js';
 	/*Documentation of the underlying calendar library can be found at https://github.com/vkurko/calendar. Comments below describe how it was implemented into the project.*/
 
 	/** @type {import('./$types').PageServerLoad} */
@@ -30,11 +30,12 @@
 		eventClick: getCurrentEventClicked,
 
 		/*events takes in an array of event objects and add them to the calendar*/
-		events: getArrayOfEventsFromDatabase()
+		events: getArrayOfEventsFromDatabase(data)
 	};
 
 
 	/*callback function which is sent to the schedule library. When a selection is made on the calendar, they don't show events on the calendar but just return the event object containing the details of the selection. select calls the createEventWithPointer function passing in the event object, which we then add to the caledar.*/
+  
 	function createEventWithPointer(event) {
 		ec.addEvent({
 			start: event.start,
@@ -49,48 +50,17 @@
 		currentEventSelected = event;
 	}
 
-	function deleteEventFromCalender() {
-		ec.removeEventById(currentEventSelected.event.id);
-	}
+  function setVariableToJsonStringOfEvents(ec){
+    allEvents = getAllEventsFromCalendarAsJson(ec);     
+  }
 
-	/*following code parses events for a user returned by the database.js file. Formats each event and returns an event Object array which the calendar library can take in and add each event into the calendar*/
-	function getArrayOfEventsFromDatabase() {
-		let eventsJson = data.post.results;
-		let eventObjects = [];
-		for (let i = 0; i < eventsJson.length; i++) {
-			eventObjects.push(convertJsonToEventObject(eventsJson[i]));
-		}
-		return eventObjects;
-	}
-
-	/*will return a string of all events objects currently on the calendar, this is done so it can be bound to an <input bind:value=someVal> and sent through a <form> to the backend +page.server.js. We bind final string value to the allEvents variable which is then bound to the <input>.
-
-		you might notice that 2 hours are added to each events start and end time, this was due to a bug which shifted the time of each event back 2 hours */
-	function getAllEventsFromCalendar() {
-		let eventsFromCalendar = ec.getEvents();
-		let updatedEventsFromcalendar = [];
-		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
-		for (let i = 0; i < eventsFromCalendar.length; i++) {
-			let event = eventsFromCalendar[i];
-			event.start.setHours(event.start.getHours() + 2);
-			event.end.setHours(event.end.getHours() + 2);
-
-			updatedEventsFromcalendar.push(event);
-		}
-		allEvents = JSON.stringify(updatedEventsFromcalendar);
-	}
-
-	/*used to assign a random hex color to events on the calendar*/
-	function getRandomHexColor() {
-		return '#' + Math.floor(Math.random() * 16777215).toString(16);
-	}
 </script>
 
 <Calendar bind:this={ec} {plugins} {options} />
 
 <!--Delete button-->
 <div class="flex flex-col items-center">
-	<button on:click={deleteEventFromCalender} class="btn btn-primary place-item-center"
+	<button on:click={deleteEventFromCalender(ec,currentEventSelected)} class="btn btn-primary place-item-center"
 		>Delete Event</button
 	>
 </div>
@@ -99,7 +69,7 @@
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
 		<input type="hidden" name="eventArray" bind:value={allEvents} />
-		<button on:click={getAllEventsFromCalendar} class="btn btn-secondary place-item-center"
+		<button on:click={setVariableToJsonStringOfEvents(ec)} class="btn btn-secondary place-item-center"
 			>Save Events</button
 		>
 	</div>
