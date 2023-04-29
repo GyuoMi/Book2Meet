@@ -8,8 +8,7 @@ gets all client events from the database and sends it to the front end in a post
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
-		`Select * from EVENT_TBL where CLIENT_ID = ${_clientID}`
-	);
+		`Select * from EVENT_TBL where CLIENT_ID = ${_clientID}`);
 
 	return {
 		post: eventsFromDatabase
