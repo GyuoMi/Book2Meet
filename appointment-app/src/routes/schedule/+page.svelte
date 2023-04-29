@@ -3,12 +3,11 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
-
+  import {convertJsonToEventObject} from './page.modules';
 	/*Documentation of the underlying calendar library can be found at https://github.com/vkurko/calendar. Comments below describe how it was implemented into the project.*/
 
 	/** @type {import('./$types').PageServerLoad} */
 	export let data;
-
 
 	//ec is an object that is bound to the calendar that allows us to calls functions provided by the calendar library.
 	let ec;
@@ -34,16 +33,6 @@
 		events: getArrayOfEventsFromDatabase()
 	};
 
-	/*the key values for the event objects returned from the database.js file uses the database naming format for the keys which is all caps, the scheduling library that we're can only read key values in a certain format. So we have to add a conversion.*/
-	function formatEventObject(event) {
-		const eventObj = {
-			start: event.EVENT_START,
-			end: event.EVENT_END,
-			title: event.EVENT_TITLE,
-			color: event.EVENT_COLOR
-		};
-		return eventObj;
-	}
 
 	/*callback function which is sent to the schedule library. When a selection is made on the calendar, they don't show events on the calendar but just return the event object containing the details of the selection. select calls the createEventWithPointer function passing in the event object, which we then add to the caledar.*/
 	function createEventWithPointer(event) {
@@ -69,7 +58,7 @@
 		let eventsJson = data.post.results;
 		let eventObjects = [];
 		for (let i = 0; i < eventsJson.length; i++) {
-			eventObjects.push(formatEventObject(eventsJson[i]));
+			eventObjects.push(convertJsonToEventObject(eventsJson[i]));
 		}
 		return eventObjects;
 	}
