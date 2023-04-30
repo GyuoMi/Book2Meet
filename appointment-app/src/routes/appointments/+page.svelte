@@ -38,8 +38,6 @@
 	//checks to see if user made a booking inside a client availibility window
 	function isUserBookingValid(event) {
 		for (let i = 0; i < clientEvents.length; i++) {
-			console.log(clientEvents[i]);
-			console.log(event.start);
 			let startDate = new Date(clientEvents[i].start);
 			let endDate = new Date(clientEvents[i].end);
 			//!!!!!!tempory removing 2 hours to dates for now
