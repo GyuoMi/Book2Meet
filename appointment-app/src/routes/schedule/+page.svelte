@@ -3,7 +3,12 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
-  import {getAllEventsFromCalendarAsJson,deleteEventFromCalender,getRandomHexColor,getArrayOfEventsFromDatabase} from './page.modules.js';
+	import {
+		getAllEventsFromCalendarAsJson,
+		deleteEventFromCalender,
+		getRandomHexColor,
+		getArrayOfEventsFromDatabase
+	} from './page.modules.js';
 	/*Documentation of the underlying calendar library can be found at https://github.com/vkurko/calendar. Comments below describe how it was implemented into the project.*/
 
 	/** @type {import('./$types').PageServerLoad} */
@@ -33,9 +38,8 @@
 		events: getArrayOfEventsFromDatabase(data)
 	};
 
-
 	/*callback function which is sent to the schedule library. When a selection is made on the calendar, they don't show events on the calendar but just return the event object containing the details of the selection. select calls the createEventWithPointer function passing in the event object, which we then add to the caledar.*/
-  
+
 	function createEventWithPointer(event) {
 		ec.addEvent({
 			start: event.start,
@@ -50,18 +54,18 @@
 		currentEventSelected = event;
 	}
 
-  function setVariableToJsonStringOfEvents(ec){
-    allEvents = getAllEventsFromCalendarAsJson(ec);     
-  }
-
+	function setVariableToJsonStringOfEvents(ec) {
+		allEvents = getAllEventsFromCalendarAsJson(ec);
+	}
 </script>
 
 <Calendar bind:this={ec} {plugins} {options} />
 
 <!--Delete button-->
 <div class="flex flex-col items-center">
-	<button on:click={deleteEventFromCalender(ec,currentEventSelected)} class="btn btn-primary place-item-center"
-		>Delete Event</button
+	<button
+		on:click={deleteEventFromCalender(ec, currentEventSelected)}
+		class="btn btn-primary place-item-center">Delete Event</button
 	>
 </div>
 
@@ -69,8 +73,9 @@
 <form method="POST" action="?/saveDatabaseEvents">
 	<div class="flex flex-col items-center py-1">
 		<input type="hidden" name="eventArray" bind:value={allEvents} />
-		<button on:click={setVariableToJsonStringOfEvents(ec)} class="btn btn-secondary place-item-center"
-			>Save Events</button
+		<button
+			on:click={setVariableToJsonStringOfEvents(ec)}
+			class="btn btn-secondary place-item-center">Save Events</button
 		>
 	</div>
 </form>
