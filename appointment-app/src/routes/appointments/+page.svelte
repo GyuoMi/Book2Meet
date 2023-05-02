@@ -25,8 +25,7 @@
 		eventDurationEditable: false,
 		eventStartEditable: false,
 		select: createEventWithPointer,
-    eventClick: getCurrentEventClicked
-
+		eventClick: getCurrentEventClicked
 	};
 	//checks to see if user made a booking inside a client availibility window
 	function isUserBookingValid(event) {
@@ -58,7 +57,7 @@
 	}
 
 	//ensures that the user can only delete their own booking
-  //Todo fix this
+	//Todo fix this
 	function isUserBooking(event) {
 		for (let i = 0; i < userBookings.length; i++) {
 			if (userBookings[i].id == event.id) {
@@ -70,7 +69,7 @@
 
 	function getCurrentEventClicked(event) {
 		// if (isUserBooking(event.event)) {
-			currentEventSelected = event;
+		currentEventSelected = event;
 		// }
 	}
 </script>
@@ -94,3 +93,15 @@
 		class="btn btn-primary place-item-center">Delete Event</button
 	>
 </div>
+
+<!--makes up the Save Events button, form used to send all events currently on the calendar to the backend to be saved into the calendar.-->
+
+<!-- <form method="POST" action="?/saveDatabaseEvents"> -->
+<!-- 	<div class="flex flex-col items-center py-1"> -->
+<!-- 		<input type="hidden" name="eventArray" bind:value={allEvents} /> -->
+<!-- 		<button -->
+<!-- 			on:click={setVariableToJsonStringOfEvents(ec)} -->
+<!-- 			class="btn btn-secondary place-item-center">Save Events</button -->
+<!-- 		> -->
+<!-- 	</div> -->
+<!-- </form> -->
