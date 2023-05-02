@@ -1,5 +1,5 @@
 import { convertJsonToEventObject } from './page.modules.js';
-import { describe,assert,it, test, assert, expect} from 'vitest';
+import { describe,assert,it, test, expect} from 'vitest';
 import Page from './+page.svelte';
 import Calendar from '@event-calendar/core';
 import TimeGrid from '@event-calendar/time-grid';
