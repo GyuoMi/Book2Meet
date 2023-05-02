@@ -53,6 +53,20 @@ export function getArrayOfEventsFromDatabase(data) {
 		}
 		return JSON.stringify(updatedEventsFromcalendar);
 	}
+export function convertDate(events) {
+		let eventsFromCalendar = events;
+		let updatedEventsFromcalendar = [];
+		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
+		for (let i = 0; i < eventsFromCalendar.length; i++) {
+			let event = eventsFromCalendar[i];
+			event.start.setHours(event.start.getHours() + 2);
+			event.end.setHours(event.end.getHours() + 2);
+
+			updatedEventsFromcalendar.push(event);
+		}
+		return JSON.stringify(updatedEventsFromcalendar);
+	}
+
 
   
 

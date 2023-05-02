@@ -19,12 +19,26 @@ export const actions = {
 
     }
     //todo get this to work you were trying to basically display all the events that a person booked with a user
-    let clientBookings = await database.getJsonFromSelectQuery(`Select EVENT_TBL.EVENT_ID,EVENT_TBL.EVENT_START,EVENT_TBL.EVENT_END,EVENT_TBL.EVENT_TITLE,EVENT_TBL.EVENT_COLOR FROM BOOKING_TBL LEFT JOIN EVENT_TBL ON BOOKING_TBL.EVENT_ID = EVENT_TBL.EVENT_ID where BOOKING_TBL.CLIENT_ID = ${_clientID} and EVENT_TBL.CLIENT_ID = ${currentlyViewedClient}`);
+    let clientBookings = [];
+    try {
 
-    let allEvents = {
-      results: clientBookings.results.concat(userEvents.results)
-    };
-    console.log(allEvents);
+      clientBookings = await database.getJsonFromSelectQuery(`Select EVENT_TBL.EVENT_ID,BOOKING_TBL.EVENT_START,BOOKING_TBL.EVENT_END,BOOKING_TBL.EVENT_TITLE,EVENT_TBL.EVENT_COLOR FROM BOOKING_TBL LEFT JOIN EVENT_TBL ON BOOKING_TBL.EVENT_ID = EVENT_TBL.EVENT_ID where BOOKING_TBL.CLIENT_ID = ${_clientID} and EVENT_TBL.CLIENT_ID = ${currentlyViewedClient}`);
+    }
+    catch {
+
+    }
+    console.log(clientBookings);
+    let allEvents;
+    try {
+      allEvents = {
+        results: clientBookings.results.concat(userEvents.results)
+      };
+
+    }
+    catch{
+      allEvents = userEvents;
+    }
+        console.log(allEvents);
     return {
       success: true,
       post: allEvents,
@@ -33,9 +47,24 @@ export const actions = {
   //TODO you need to then save all the bookings a guy made 
   saveBookings: async ({ request }) => {
     const responseData = await request.formData();
-    const eventListJson = JSON.parse(event.get('eventArray'));
+    console.log(responseData);
+    const eventListJson = JSON.parse(responseData.get('userBookings'));
 
-    await database.mysqlconn.query('DELETE FROM BOOKING_TBL WHERE CLIENT_ID = ?', _clientID)
+    const eventTitle = "Booking";
+    let eventStart;
+    let eventEnd;
+    let eventId;
+    console.log(eventListJson);
+    for (let i = 0; i < eventListJson.length; i++) {
+      eventId = eventListJson[i].id;
+      eventStart = new Date(eventListJson[i].start);
+      eventStart.setHours(eventStart.getHours());
+      eventEnd = new Date(eventListJson[i].end);
+      eventEnd.setHours(eventEnd.getHours());
+
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart, eventEnd, eventTitle]);
+    }
+
 
 
   }

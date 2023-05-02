@@ -7,6 +7,7 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
 
+  let allUserBookingsJson = [];
 	let userBookings = [];
 	let clientEvents = getArrayOfEventsFromDatabase(form);
 	let currentEventSelected;
@@ -39,6 +40,14 @@
 			let startEventDate = new Date(event.start);
 			let endEventDate = new Date(event.end);
 			if (startDate <= startEventDate && endDate >= endEventDate) {
+        let eventVar = {
+          id: clientEvents[i].id,
+          start: event.start,
+          end:event.end 
+        };
+        userBookings.push(eventVar);
+        allUserBookingsJson = JSON.stringify(userBookings);
+        console.log(userBookings);
 				return true;
 			}
 		}
@@ -53,7 +62,6 @@
 			end: event.end,
 			title: 'booking'
 		});
-		userBookings.push(event);
 	}
 
 	//ensures that the user can only delete their own booking
@@ -72,6 +80,13 @@
 		currentEventSelected = event;
 		// }
 	}
+
+  function setVariableToJsonStringOfEvents(){
+    console.log(userBookings);
+    allUserBookingsJson = JSON.stringify(userBookings); 
+    console.log(allUserBookingsJson);
+  }
+
 </script>
 
 <form method="POST" action="?/getSearchedEmailEvents">
@@ -94,14 +109,13 @@
 	>
 </div>
 
-<!--makes up the Save Events button, form used to send all events currently on the calendar to the backend to be saved into the calendar.-->
+<!-- makes up the Save Events button, form used to send all events currently on the calendar to the backend to be saved into the calendar. -->
 
-<!-- <form method="POST" action="?/saveDatabaseEvents"> -->
-<!-- 	<div class="flex flex-col items-center py-1"> -->
-<!-- 		<input type="hidden" name="eventArray" bind:value={allEvents} /> -->
-<!-- 		<button -->
-<!-- 			on:click={setVariableToJsonStringOfEvents(ec)} -->
-<!-- 			class="btn btn-secondary place-item-center">Save Events</button -->
-<!-- 		> -->
-<!-- 	</div> -->
-<!-- </form> -->
+<form method="POST" action="?/saveBookings">
+	<div class="flex flex-col items-center py-1">
+		<button
+			class="btn btn-secondary place-item-center">Save Events</button
+		>
+<input type="hidden" name="userBookings" bind:value={allUserBookingsJson} />
+			</div>
+</form>
