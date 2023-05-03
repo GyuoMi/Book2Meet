@@ -40,7 +40,7 @@
 
 	/*callback function which is sent to the schedule library. When a selection is made on the calendar, they don't show events on the calendar but just return the event object containing the details of the selection. select calls the createEventWithPointer function passing in the event object, which we then add to the caledar.*/
 
-	function createEventWithPointer(event) {
+	export function createEventWithPointer(event) {
 		ec.addEvent({
 			start: event.start,
 			end: event.end,
