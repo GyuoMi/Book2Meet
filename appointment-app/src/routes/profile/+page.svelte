@@ -37,12 +37,54 @@
 		
 	</div>
 	<script lang = "ts">
-		//import { emailPattern, passwordPattern } from './validation.js';
+		const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 		const editButton = document.getElementById("edit-btn");
 		const nameInput = document.getElementById("name");
 		const surnameInput = document.getElementById("surname");
 		const emailInput = document.getElementById("email");
 		const passwordInput = document.getElementById("password");
+
+		function validateEmail() {
+  			const email = emailInput.value.trim();
+  			if (email === "" || !emailPattern.test(email)) {
+    			emailInput.classList.add("red-border");
+    			emailInput.setCustomValidity("Please enter a valid email address.");
+  			} else {
+    			emailInput.classList.remove("red-border");
+    			emailInput.setCustomValidity("");
+  			}
+		}
+
+		function validatePassword() {
+  			const password = passwordInput.value.trim();
+  			if (password === "" || !passwordPattern.test(password)) {
+    			passwordInput.classList.add("red-border");
+    			passwordInput.setCustomValidity("Password must be at least 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.");
+  			} else {
+    			passwordInput.classList.remove("red-border");
+    			passwordInput.setCustomValidity("");
+  			}
+		}
+
+		function validateName() {
+    		const name = nameInput.value.trim();
+    		if (name === "") {
+      		nameInput.classList.add("red-border");
+    		} else {
+      			nameInput.classList.remove("red-border");
+    		}
+  		}
+
+ 		 function validateSurname() {
+    		const surname = surnameInput.value.trim();
+    		if (surname === "") {
+     			surnameInput.classList.add("red-border");
+    		} else {
+      			surnameInput.classList.remove("red-border");
+    		}
+  		}
 
 		editButton.addEventListener("click", function(event) {
   			event.preventDefault();
@@ -52,14 +94,22 @@
     			surnameInput.removeAttribute("readonly");
     			emailInput.removeAttribute("readonly");
     			passwordInput.removeAttribute("readonly");
-  			} else {
-      			editButton.textContent = "Edit";
-      			nameInput.setAttribute("readonly", "");
-      			surnameInput.setAttribute("readonly", "");
-      			emailInput.setAttribute("readonly", "");
-      			passwordInput.setAttribute("readonly", "");
+  			}else{
+				validateEmail();
+    			validatePassword();
+				validateSurname();
+				validateName();
+    			if (emailInput.checkValidity() && passwordInput.checkValidity() && surnameInput.value != "" && nameInput.value != "") {
+      				editButton.textContent = "Edit";
+      				nameInput.setAttribute("readonly", "");
+      				surnameInput.setAttribute("readonly", "");
+      				emailInput.setAttribute("readonly", "");
+      				passwordInput.setAttribute("readonly", "");
     			}
-			});
+    		}
+		});
+		emailInput.addEventListener("input", validateEmail);
+		passwordInput.addEventListener("input", validatePassword);
 	  </script>
 </div>
 
