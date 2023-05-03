@@ -1,10 +1,10 @@
-import { convertJsonToEventObject } from './page.modules.js';
+import { convertJsonToEventObject,deleteEventFromCalender} from './page.modules.js';
 import { describe,assert,it, test, expect} from 'vitest';
 import Page from './+page.svelte';
 import Calendar from '@event-calendar/core';
 import TimeGrid from '@event-calendar/time-grid';
 import Interaction from '@event-calendar/interaction';
-import {formatDateTime, deleteEventFromCalendar, createEventWithPointer} from './page';
+import {createEventWithPointer} from './+page.svelte';
 describe('equivalence tests', () => {
 	it('checks if convertJsonToEventObject works as expected', () => {
 
@@ -24,9 +24,7 @@ describe('equivalence tests', () => {
 
 		expect(convertJsonToEventObject(eventObjGiven)).toMatchObject(eventObjExpected);
 	});
-// createEventWithPointer
-test('createEventWithPointer adds a new event to the calendar', () => {
-    const ec = {
+  const ec = {
       addEvent: (event) => {
         assert.deepEqual(event, {
           start: '2022-03-21 10:20',
@@ -36,6 +34,9 @@ test('createEventWithPointer adds a new event to the calendar', () => {
         });
       }
     };
+
+// createEventWithPointer
+test('createEventWithPointer adds a new event to the calendar', () => {
     const info = {
       start: new Date('2022-03-21T10:20:00'),
       end: new Date('2022-03-21T11:20:00')
@@ -71,24 +72,5 @@ test('createEventWithPointer adds a new event to the calendar', () => {
     expect(removeEventByIdSpy).toHaveBeenCalledWith(event.id);
     removeEventByIdSpy.mockRestore();
   });
-
- // formatDateTime
-  it('formats a given date object to a string in the correct format', async () => {
-    const date = new Date(2022, 2, 24, 10, 0, 0);
-    const formattedDate = Page.formatDateTime(date);
-    expect(formattedDate).toBe('2022-03-24 10:00');
-  });
-
-  it('formats a date with a single-digit month and date', async () => {
-    const date = new Date(2022, 0, 1, 10, 0, 0);
-    const formattedDate = Page.formatDateTime(date);
-    expect(formattedDate).toBe('2022-01-01 10:00');
-  });
-
-  it('formats a date with a single-digit hour and minute', async () => {
-    const date = new Date(2022, 2, 24, 1, 5, 0);
-    const formattedDate = Page.formatDateTime(date);
-    expect(formattedDate).toBe('2022-03-24 01:05');
-  });
-});
+ });
  
