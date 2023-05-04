@@ -28,7 +28,7 @@
 					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 				>
           <li><a href="/">Home</a></li>
-					<li><a>Profile</a></li>
+					<li><a href="/profile">Profile</a></li>
 					<li><a href="/schedule">Schedule</a></li>
           <li><a href="/appointments">Booking</a></li>
 					<li><a>About</a></li>
