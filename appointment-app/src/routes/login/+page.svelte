@@ -44,7 +44,7 @@
 			</p>
 		</div>
 
-		<!--
+<!--
   Email field
 -->
 		<form method="POST" action="?/login">

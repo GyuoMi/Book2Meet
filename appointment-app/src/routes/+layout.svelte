@@ -29,6 +29,7 @@
 				>
           <li><a href="/">Home</a></li>
 					<li><a href="/profile">Profile</a></li>
+					<li><a href="/Meetings">Past Meetings</a></li>
 					<li><a href="/schedule">Schedule</a></li>
           <li><a href="/appointments">Booking</a></li>
 					<li><a>About</a></li>
