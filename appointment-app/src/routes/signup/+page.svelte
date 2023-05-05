@@ -2,8 +2,8 @@
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
 
-  /** @type {import('./$types').ActionData} */  
-  export let form;
+	/** @type {import('./$types').ActionData} */
+	export let form;
 
 	let password = '';
 	let confirmPassword = '';
@@ -99,7 +99,6 @@
 		}
 		return;
 	}
-
 </script>
 
 <!-- 
@@ -296,17 +295,15 @@
 					</div>
 
 					<div class="form-control mt-6">
-						<button  formaction="?/signup" class="btn btn-primary">
+						<button formaction="?/signup" class="btn btn-primary">
 							Sign Up
-								<!-- <a
+							<!-- <a
 								href={emailValid && passwordValid && confirmPasswordValid ? '/login' : '#'}
 								on:click={handleClick}>SIGN UP</a
 							> -->
-							
-							
 						</button>
 					</div>
-					
+
 					<form />
 
 					<label class="label">
@@ -417,7 +414,5 @@
 		</div>
 	</div>
 </footer>
-
-
 
 <slot />

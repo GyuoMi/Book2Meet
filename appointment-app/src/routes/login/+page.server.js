@@ -7,26 +7,23 @@ export let _clientID;
 export const actions = {
 	login: async ({ request }) => {
 		const loginDetails = await request.formData();
-        const email = loginDetails.get("email");
-        const password = loginDetails.get("password");
-        
-        
-        const clientData = await database.getJsonFromSelectQuery(`SELECT * FROM CLIENT_TBL WHERE CLIENT_EMAIL = '${email}'`);
-		
-		if (clientData.results.length >0){
-			if (password == clientData.results[0].CLIENT_PASSWORD){
-			 _clientID = clientData.results[0].CLIENT_ID;
-			 throw redirect(303,'/schedule');
-			
+		const email = loginDetails.get('email');
+		const password = loginDetails.get('password');
+
+		const clientData = await database.getJsonFromSelectQuery(
+			`SELECT * FROM CLIENT_TBL WHERE CLIENT_EMAIL = '${email}'`
+		);
+
+		if (clientData.results.length > 0) {
+			if (password == clientData.results[0].CLIENT_PASSWORD) {
+				_clientID = clientData.results[0].CLIENT_ID;
+				throw redirect(303, '/schedule');
+			}
+		} else {
+			return { success: false };
 		}
-		
-		}
-		else{
-			return{success : false};
-		}
-		
-		
-        /*
+
+		/*
 		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?', client);
 
 		for (let i = 0; i < eventListJson.length; i++) {
