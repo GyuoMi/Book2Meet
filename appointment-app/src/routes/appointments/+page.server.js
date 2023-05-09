@@ -3,6 +3,20 @@ import database from '../api/database.js'
 import { _clientID } from '../login/+page.server.js';
 
 let currentlyViewedClient;
+let clientEmail;
+//email is the email for the person the client has searched up and wants to book
+let email;
+
+export async function load({ params }) {
+	const eventsFromDatabase = await database.getJsonFromSelectQuery(
+		`Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+
+    const clientEmail = eventsFromDatabase[0].CLIENT_EMAIL;
+	return {
+		clientEmail: clientEmail
+	};
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
