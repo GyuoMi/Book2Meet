@@ -1,4 +1,5 @@
 import database from '../api/database.js';
+import { DateTime } from 'luxon';
 //CHANGE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 import { _clientID } from '../login/+page.server.js';
 
@@ -25,15 +26,24 @@ export const actions = {
 		const event = await request.formData();
 		//gets the data from the <input> tag named eventArray
 		const eventListJson = JSON.parse(event.get('eventArray'));
-
+    console.log(eventListJson);
 		await database.mysqlconn.query('Delete FROM EVENT_TBL where CLIENT_ID = ?', _clientID);
 
 		for (let i = 0; i < eventListJson.length; i++) {
 			let event = eventListJson[i];
-			await database.mysqlconn.query(
+      if(typeof Number(event.id) == 'number'){
+      await database.mysqlconn.query(
 				'INSERT INTO EVENT_TBL (EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR,CLIENT_ID) VALUES (?,?,?,?,?)',
 				[event.start, event.end, event.title, event.backgroundColor, _clientID]
 			);
+
+      }else{
+await database.mysqlconn.query(
+				'INSERT INTO EVENT_TBL (EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR,CLIENT_ID) VALUES (?,?,?,?,?,?)',
+				[event.id,event.start, event.end, event.title, event.backgroundColor, _clientID]
+			);
+
+      }
 		}
 	}
 };
