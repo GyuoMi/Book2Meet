@@ -82,9 +82,7 @@
 	}
 
   function setVariableToJsonStringOfEvents(){
-    console.log(userBookings);
     allUserBookingsJson = JSON.stringify(userBookings); 
-    console.log(allUserBookingsJson);
   }
 
 </script>
