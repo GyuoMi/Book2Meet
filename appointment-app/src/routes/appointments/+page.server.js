@@ -1,7 +1,7 @@
 import database from '../api/database.js'
 //gets the currently logged in users ID
 import { _clientID } from '../login/+page.server.js';
-
+import { convertTimezoneOfEventList } from '../timezone.js';
 let currentlyViewedClient;
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -27,7 +27,6 @@ export const actions = {
     catch {
 
     }
-    console.log(clientBookings);
     let allEvents;
     try {
       allEvents = {
@@ -35,10 +34,13 @@ export const actions = {
       };
 
     }
-    catch{
+    catch {
       allEvents = userEvents;
     }
-        console.log(allEvents);
+
+    let userTimeZone = await database.getJsonFromSelectQuery(`Select CLIENT_TIMEZONE from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+    let convertedTimeZones = convertTimezoneOfEventList(allEvents, userTimeZone.results[0].CLIENT_TIMEZONE);
+    
     return {
       success: true,
       post: allEvents,
@@ -61,11 +63,7 @@ export const actions = {
       eventStart.setHours(eventStart.getHours());
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
-
-      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart, eventEnd, eventTitle]);
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
     }
-
-
-
   }
 }
