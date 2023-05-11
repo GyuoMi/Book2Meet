@@ -1,5 +1,6 @@
 <script lang = "ts">
 
+  import {availableTimeZones} from '../timezone.js';
 
   	/** @type {import('./$types').PageServerLoad} */
 	  export let data;
@@ -10,8 +11,9 @@
     let lastName = clientInfo.CLIENT_LAST_NAME;
     let email = clientInfo.CLIENT_EMAIL;
     let password = clientInfo.CLIENT_PASSWORD;
+    let timeZone = clientInfo.CLIENT_TIMEZONE;
 
-	const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
     /*
@@ -62,6 +64,9 @@
 			surnameInput.classList.remove('red-border');
 		}
 	}
+
+
+  
 </script>
 
 <div class="hero min-h-screen bg-base-200">
@@ -127,6 +132,17 @@
                   bind:value={password}
 								/>
 							</div>
+              <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text mt-1 text-sm font-bold">Change Time Zone</span>
+  </label>
+  <select name="timeZone" class="select select-bordered" bind:value={timeZone}>
+    <option disabled selected>Pick one</option>
+    {#each availableTimeZones as timeZone}
+    <option>{timeZone}</option>
+    {/each}
+  </select>
+</div>
 							<div class="form-control mt-6">
 								<button id="saveBtn" class="btn btn-primary">Save</button>
 							</div>
