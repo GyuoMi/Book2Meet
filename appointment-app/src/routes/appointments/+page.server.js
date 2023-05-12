@@ -5,7 +5,7 @@ import { sendEmail } from '../api/emailConfig.js'
 let currentlyViewedClient;
 let clientEmail;
 //email is the email for the person the client has searched up and wants to book
-let email;
+let userEmail;
 
 
 
@@ -25,6 +25,8 @@ export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
     const responseData = await request.formData();
     const email = responseData.get('email');
+    //setting user email so that it can be used for sending off the notication
+    userEmail = email;
     //getting the searched users ID
     let userEvents = await database.getJsonFromSelectQuery(
       `Select EVENT_TBL.CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR FROM EVENT_TBL RIGHT JOIN CLIENT_TBL ON EVENT_TBL.CLIENT_ID = CLIENT_TBL.CLIENT_ID WHERE CLIENT_TBL.CLIENT_EMAIL = "${email}"`);
@@ -80,7 +82,7 @@ export const actions = {
       eventEnd.setHours(eventEnd.getHours());
 
       await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart, eventEnd, eventTitle]);
-      sendEmail(clientEmail, email, eventStart, eventEnd,)
+      sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
   }
 }
