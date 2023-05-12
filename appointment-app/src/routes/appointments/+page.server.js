@@ -27,7 +27,7 @@ export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
     const responseData = await request.formData();
     const email = responseData.get('email');
-    //setting user email so that it can be used for sending off the notication
+    //setting user email so that it can be used for sending off the notification
     userEmail = email;
     //getting the searched users ID
     let userEvents = await database.getJsonFromSelectQuery(
