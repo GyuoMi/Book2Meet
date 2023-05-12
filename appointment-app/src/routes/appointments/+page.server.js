@@ -2,6 +2,7 @@ import database from '../api/database.js'
 //gets the currently logged in users ID
 import { _clientID } from '../login/+page.server.js';
 
+
 let currentlyViewedClient;
 let clientEmail;
 //email is the email for the person the client has searched up and wants to book
@@ -11,9 +12,14 @@ export async function load({ params }) {
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
 		`Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
 
-    const clientEmail = eventsFromDatabase[0].CLIENT_EMAIL;
+  allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
+
+  const clientEmail = eventsFromDatabase[0].CLIENT_EMAIL;
+  
+
 	return {
-		clientEmail: clientEmail
+		clientEmail: clientEmail,
+    emails: allEmailsFromDatabase,    
 	};
 }
 
