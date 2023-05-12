@@ -17,7 +17,7 @@ export async function load({ params }) {
   allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
 
   clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
-
+  console.log(allEmailsFromDatabase);
 	return {
     emails: allEmailsFromDatabase,    
 	};
