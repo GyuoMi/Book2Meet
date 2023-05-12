@@ -33,9 +33,6 @@
 		for (let i = 0; i < clientEvents.length; i++) {
 			let startDate = new Date(clientEvents[i].start);
 			let endDate = new Date(clientEvents[i].end);
-			//!!!!!!tempory removing 2 hours to dates for now
-			startDate.setHours(startDate.getHours() - 2);
-			endDate.setHours(endDate.getHours() - 2);
 			//fix
 			let startEventDate = new Date(event.start);
 			let endEventDate = new Date(event.end);
@@ -82,9 +79,7 @@
 	}
 
   function setVariableToJsonStringOfEvents(){
-    console.log(userBookings);
     allUserBookingsJson = JSON.stringify(userBookings); 
-    console.log(allUserBookingsJson);
   }
 
 </script>

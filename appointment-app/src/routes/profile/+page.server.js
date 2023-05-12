@@ -25,7 +25,7 @@ export const actions = {
     const lastName = clientDataUpdated.get("surname");
     const email = clientDataUpdated.get("email");
     const password =clientDataUpdated.get("password");
-
-    await database.mysqlconn.query('UPDATE CLIENT_TBL SET CLIENT_FIRST_NAME = ?, CLIENT_LAST_NAME=?,CLIENT_EMAIL=?,CLIENT_PASSWORD=? where CLIENT_ID = ?',[firstName,lastName,email,password,_clientID]);
+    const timeZone = clientDataUpdated.get("timeZone");
+    await database.mysqlconn.query('UPDATE CLIENT_TBL SET CLIENT_FIRST_NAME = ?, CLIENT_LAST_NAME=?,CLIENT_EMAIL=?,CLIENT_PASSWORD=?,CLIENT_TIMEZONE=? where CLIENT_ID = ?',[firstName,lastName,email,password,timeZone,_clientID]);
     }
 };

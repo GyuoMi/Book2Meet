@@ -1,4 +1,4 @@
-
+import { DateTime } from "luxon";
 /*the key values for the event objects returned from the database.js file uses the database naming format for the keys which is all caps, the scheduling library that we're can only read key values in a certain format. So we have to add a conversion.*/
 export function convertJsonToEventObject(event) {
   const eventObj = {
@@ -19,9 +19,9 @@ export function getArrayOfEventsFromDatabase(data) {
   }
 		let eventsJson = data.post.results;
 		let eventObjects = [];
-  if (eventsJson[0]['EVENT_ID'] == null){
-    return [];
-  }
+   if (eventsJson[0]['EVENT_ID'] == null){
+     return [];
+   }
 		for (let i = 0; i < eventsJson.length; i++) { 
 			eventObjects.push(convertJsonToEventObject(eventsJson[i]));
 		}
@@ -42,29 +42,7 @@ export function getArrayOfEventsFromDatabase(data) {
 		you might notice that 2 hours are added to each events start and end time, this was due to a bug which shifted the time of each event back 2 hours */
 	export function getAllEventsFromCalendarAsJson(ec) {
 		let eventsFromCalendar = ec.getEvents();
-		let updatedEventsFromcalendar = [];
-		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
-		for (let i = 0; i < eventsFromCalendar.length; i++) {
-			let event = eventsFromCalendar[i];
-			event.start.setHours(event.start.getHours() + 2);
-			event.end.setHours(event.end.getHours() + 2);
-
-			updatedEventsFromcalendar.push(event);
-		}
-		return JSON.stringify(updatedEventsFromcalendar);
-	}
-export function convertDate(events) {
-		let eventsFromCalendar = events;
-		let updatedEventsFromcalendar = [];
-		//TEMPORARY FIX PLEASE!!!!!!!!!!!!!!
-		for (let i = 0; i < eventsFromCalendar.length; i++) {
-			let event = eventsFromCalendar[i];
-			event.start.setHours(event.start.getHours() + 2);
-			event.end.setHours(event.end.getHours() + 2);
-
-			updatedEventsFromcalendar.push(event);
-		}
-		return JSON.stringify(updatedEventsFromcalendar);
+		return JSON.stringify(eventsFromCalendar);
 	}
 
 
