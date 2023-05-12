@@ -84,7 +84,7 @@ export const actions = {
       eventStart.setHours(eventStart.getHours());
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
-      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart, eventEnd, eventTitle]);
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
   }
