@@ -1,7 +1,7 @@
 import database from '../api/database';
 import { redirect } from '@sveltejs/kit';
 
-export let _clientID;
+export let _clientID = 1;
 
 /** @type {import('./$types').Actions} */
 export const actions = {
