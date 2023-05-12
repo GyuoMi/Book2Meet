@@ -1,13 +1,34 @@
 import database from '../api/database.js'
 //gets the currently logged in users ID
 import { _clientID } from '../login/+page.server.js';
+import { sendEmail } from '../api/emailConfig.js'
+
 import { convertTimezoneOfEventList } from '../timezone.js';
 let currentlyViewedClient;
+let clientEmail;
+//email is the email for the person the client has searched up and wants to book
+let userEmail;
+
+
+
+export async function load({ params }) {
+	const eventsFromDatabase = await database.getJsonFromSelectQuery(
+		`Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+
+    clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
+	
+}
+
+
+
+
 /** @type {import('./$types').Actions} */
 export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
     const responseData = await request.formData();
     const email = responseData.get('email');
+    //setting user email so that it can be used for sending off the notification
+    userEmail = email;
     //getting the searched users ID
     let userEvents = await database.getJsonFromSelectQuery(
       `Select EVENT_TBL.CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR FROM EVENT_TBL RIGHT JOIN CLIENT_TBL ON EVENT_TBL.CLIENT_ID = CLIENT_TBL.CLIENT_ID WHERE CLIENT_TBL.CLIENT_EMAIL = "${email}"`);
@@ -64,6 +85,7 @@ export const actions = {
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
       await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
+      sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
   }
 }
