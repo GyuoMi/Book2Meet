@@ -2,8 +2,8 @@ import database from '../api/database.js'
 //gets the currently logged in users ID
 import { _clientID } from '../login/+page.server.js';
 import { sendEmail } from '../api/emailConfig.js'
-import { convertTimezoneOfEventList } from '../timezone.js';
 
+import { convertTimezoneOfEventList } from '../timezone.js';
 let currentlyViewedClient;
 let clientEmail;
 //email is the email for the person the client has searched up and wants to book
@@ -32,7 +32,7 @@ export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
     const responseData = await request.formData();
     const email = responseData.get('email');
-    //setting user email so that it can be used for sending off the notication
+    //setting user email so that it can be used for sending off the notification
     userEmail = email;
     //getting the searched users ID
     let userEvents = await database.getJsonFromSelectQuery(
@@ -90,7 +90,7 @@ export const actions = {
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
 
-      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart, eventEnd, eventTitle]);
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
   }
