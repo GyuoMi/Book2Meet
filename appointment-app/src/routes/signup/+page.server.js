@@ -9,10 +9,11 @@ export const actions = {
 		const lastName = signupDetails.get('lastName');
 		const email = signupDetails.get('email');
 		const password = signupDetails.get('password');
+    const timeZone = signupDetails.get('timeZone');
 		console.log(signupDetails);
 		await mysqlconn.query(
-			'INSERT INTO CLIENT_TBL (CLIENT_FIRST_NAME,CLIENT_LAST_NAME, CLIENT_EMAIL, CLIENT_PASSWORD) VALUES (?,?,?,?)',
-			[firstName, lastName, email, password]
+			'INSERT INTO CLIENT_TBL (CLIENT_FIRST_NAME,CLIENT_LAST_NAME, CLIENT_EMAIL, CLIENT_PASSWORD,CLIENT_TIMEZONE) VALUES (?,?,?,?,?)',
+			[firstName, lastName, email, password,timeZone]
 		);
 
 		throw redirect(303, '/login');

@@ -1,116 +1,157 @@
+<script lang = "ts">
+
+  import {availableTimeZones} from '../timezone.js';
+
+  	/** @type {import('./$types').PageServerLoad} */
+	  export let data;
+    
+    console.log(data);
+    let clientInfo = data.post.results[0];
+    let firstName = clientInfo.CLIENT_FIRST_NAME;
+    let lastName = clientInfo.CLIENT_LAST_NAME;
+    let email = clientInfo.CLIENT_EMAIL;
+    let password = clientInfo.CLIENT_PASSWORD;
+    let timeZone = clientInfo.CLIENT_TIMEZONE;
+
+   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    /*
+	const editButton = document.getElementById('edit-btn');
+	const nameInput = document.getElementById('name');
+	const surnameInput = document.getElementById('surname');
+	const emailInput = document.getElementById('email');
+	const passwordInput = document.getElementById('password');
+*/
+	function validateEmail() {
+		const email = emailInput.value.trim();
+		if (email === '' || !emailPattern.test(email)) {
+			emailInput.classList.add('red-border');
+			emailInput.setCustomValidity('Please enter a valid email address.');
+		} else {
+			emailInput.classList.remove('red-border');
+			emailInput.setCustomValidity('');
+		}
+	}
+
+	function validatePassword() {
+		const password = passwordInput.value.trim();
+		if (password === '' || !passwordPattern.test(password)) {
+			passwordInput.classList.add('red-border');
+			passwordInput.setCustomValidity(
+				'Password must be at least 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.'
+			);
+		} else {
+			passwordInput.classList.remove('red-border');
+			passwordInput.setCustomValidity('');
+		}
+	}
+
+	function validateName() {
+		const name = nameInput.value.trim();
+		if (name === '') {
+			nameInput.classList.add('red-border');
+		} else {
+			nameInput.classList.remove('red-border');
+		}
+	}
+
+	function validateSurname() {
+		const surname = surnameInput.value.trim();
+		if (surname === '') {
+			surnameInput.classList.add('red-border');
+		} else {
+			surnameInput.classList.remove('red-border');
+		}
+	}
+
+
+  
+</script>
+
 <div class="hero min-h-screen bg-base-200">
 	<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 		<div class="card-body">
 			<div class="avatar">
 				<div class="w-24 rounded-full">
-				  <img src="https://i.pinimg.com/736x/58/52/bd/5852bd0b1872da0ff337592e3da30f07.jpg" />
+					<img src="https://i.pinimg.com/736x/58/52/bd/5852bd0b1872da0ff337592e3da30f07.jpg" />
 				</div>
 			</div>
 			<div class="px-4 sm:px-1">
 				<h3 class="text-base font-semibold leading-7 text-gray-900">Profile Information</h3>
-				<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Account details and prefrences.</p>
+				<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+					Account details and prefrences.
+				</p>
 			</div>
-			<form id="profile-form" class="divide-y divide-gray-200">
+			<form method="POST" action="?/saveClientInfoToDatabase" id="profile-form" class="divide-y divide-gray-200">
 				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
 					<label for="name" class="text-sm font-medium leading-6 text-gray-900">Name</label>
-					<input id="name" name="name" type="text" placeholder="Name" class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2" readonly>
+					<input
+						id="name"
+						name="name"
+						type="text"
+						placeholder="Name"
+						class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2"
+            bind:value={firstName}
+					/>
 				</div>
-			<dl class="divide-y divide-gray-200">
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
-					<label for="surname" class="text-sm font-medium leading-6 text-gray-900">Surname</label>
-          			<input id="surname" name="surname" type="text" placeholder="Surname" class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2" readonly>
-				</div>
-			<dl class="divide-y divide-gray-200">
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
-					<label for="email" class="text-sm font-medium leading-6 text-gray-900">Email</label>
-          			<input id="email" name="email" type="email" placeholder="Email" class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2" readonly>
-				</div>
-			<dl class="divide-y divide-gray-100">
-				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
-					<label for="password" class="text-sm font-medium leading-6 text-gray-900">Password</label>
-          			<input id="password" name="password" type="password" placeholder="******" class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2" readonly>
-				</div>
-		  	<div class="form-control mt-6">
-				<button id="edit-btn" class="btn btn-primary">Edit</button>
-		  	</div>
+				<dl class="divide-y divide-gray-200">
+					<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
+						<label for="surname" class="text-sm font-medium leading-6 text-gray-900">Surname</label>
+						<input
+							id="surname"
+							name="surname"
+							type="text"
+							placeholder="Surname"
+							class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2"
+              bind:value={lastName}
+						/>
+					</div>
+					<dl class="divide-y divide-gray-200">
+						<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
+							<label for="email" class="text-sm font-medium leading-6 text-gray-900">Email</label>
+							<input
+								id="email"
+								name="email"
+								type="email"
+								placeholder="Email"
+								class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2"
+                bind:value={email}
+							/>
+						</div>
+						<dl class="divide-y divide-gray-100">
+							<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-1">
+								<label for="password" class="text-sm font-medium leading-6 text-gray-900"
+									>Password</label
+								>
+								<input
+									id="password"
+									name="password"
+									type="password"
+									class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2"
+                  bind:value={password}
+								/>
+							</div>
+              <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text mt-1 text-sm font-bold">Change Time Zone</span>
+  </label>
+  <select name="timeZone" class="select select-bordered" bind:value={timeZone}>
+    <option disabled selected>Pick one</option>
+    {#each availableTimeZones as timeZone}
+    <option>{timeZone}</option>
+    {/each}
+  </select>
+</div>
+							<div class="form-control mt-6">
+								<button id="saveBtn" class="btn btn-primary">Save</button>
+							</div>
+						</dl>
+					</dl>
+				</dl>
+			</form>
 		</div>
-		
 	</div>
-	<script lang = "ts">
-		const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-		const editButton = document.getElementById("edit-btn");
-		const nameInput = document.getElementById("name");
-		const surnameInput = document.getElementById("surname");
-		const emailInput = document.getElementById("email");
-		const passwordInput = document.getElementById("password");
-
-		function validateEmail() {
-  			const email = emailInput.value.trim();
-  			if (email === "" || !emailPattern.test(email)) {
-    			emailInput.classList.add("red-border");
-    			emailInput.setCustomValidity("Please enter a valid email address.");
-  			} else {
-    			emailInput.classList.remove("red-border");
-    			emailInput.setCustomValidity("");
-  			}
-		}
-
-		function validatePassword() {
-  			const password = passwordInput.value.trim();
-  			if (password === "" || !passwordPattern.test(password)) {
-    			passwordInput.classList.add("red-border");
-    			passwordInput.setCustomValidity("Password must be at least 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.");
-  			} else {
-    			passwordInput.classList.remove("red-border");
-    			passwordInput.setCustomValidity("");
-  			}
-		}
-
-		function validateName() {
-    		const name = nameInput.value.trim();
-    		if (name === "") {
-      		nameInput.classList.add("red-border");
-    		} else {
-      			nameInput.classList.remove("red-border");
-    		}
-  		}
-
- 		 function validateSurname() {
-    		const surname = surnameInput.value.trim();
-    		if (surname === "") {
-     			surnameInput.classList.add("red-border");
-    		} else {
-      			surnameInput.classList.remove("red-border");
-    		}
-  		}
-
-		editButton.addEventListener("click", function(event) {
-  			event.preventDefault();
-  			if (editButton.textContent === "Edit") {
-    			editButton.textContent = "Save";
-    			nameInput.removeAttribute("readonly");
-    			surnameInput.removeAttribute("readonly");
-    			emailInput.removeAttribute("readonly");
-    			passwordInput.removeAttribute("readonly");
-  			}else{
-				validateEmail();
-    			validatePassword();
-				validateSurname();
-				validateName();
-    			if (emailInput.checkValidity() && passwordInput.checkValidity() && surnameInput.value != "" && nameInput.value != "") {
-      				editButton.textContent = "Edit";
-      				nameInput.setAttribute("readonly", "");
-      				surnameInput.setAttribute("readonly", "");
-      				emailInput.setAttribute("readonly", "");
-      				passwordInput.setAttribute("readonly", "");
-    			}
-    		}
-		});
-		emailInput.addEventListener("input", validateEmail);
-		passwordInput.addEventListener("input", validatePassword);
-	  </script>
 </div>
 
 <!-- 
@@ -178,3 +219,4 @@
 		</div>
 	</div>
 </footer>
+
