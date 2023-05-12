@@ -4,11 +4,15 @@
 	import '@event-calendar/core/index.css';
 	import Interaction from '@event-calendar/interaction';
 	import { deleteEventFromCalender, getArrayOfEventsFromDatabase } from '../schedule/page.modules';
-  import autoComplete from './autoCompleteStyle.svelte';
+  import Country from './Country.svelte';
+	/** @type {import('./$types').PageServerLoad} */
+	export let data;
+
 
 	/** @type {import('./$types').ActionData} */
 	export let form;
-
+  
+  const countries = data.emails;
   let allUserBookingsJson = [];
 	let userBookings = [];
 	let clientEvents = getArrayOfEventsFromDatabase(form);
@@ -85,9 +89,11 @@
   }
 
 //from this point the code is used to handel the suggested searches
-let filteredSearches = [];
+/* FILTERING countres DATA BASED ON INPUT */	
+let filteredCountries = [];
+// $: console.log(filteredCountries)	
 
-const filterSearch = () => {
+const filterCountries = () => {
 	let storageArr = []
 	if (inputValue) {
 		countries.forEach(country => {
@@ -96,26 +102,31 @@ const filterSearch = () => {
 			 }
 		});
 	}
-	filteredSearches = storageArr;
+	filteredCountries = storageArr;
 }	
 
+
+/* HANDLING THE INPUT */
 let searchInput; // use with bind:this to focus element
 let inputValue = "";
 	
 $: if (!inputValue) {
-	filteredSearches = [];
+	filteredCountries = [];
 	hiLiteIndex = null;
 }
+
 const clearInput = () => {
 	inputValue = "";	
 	searchInput.focus();
 }
-const setInputVal = (email) => {
-	inputValue = removeBold(email);
-	filteredSearches = [];
+	
+const setInputVal = (countryName) => {
+	inputValue = removeBold(countryName);
+	filteredCountries = [];
 	hiLiteIndex = null;
 	document.querySelector('#country-input').focus();
 }	
+
 const makeMatchBold = (str) => {
 	// replace part of (country name === inputValue) with strong tags
 	let matched = str.substring(0, inputValue.length);
@@ -123,38 +134,68 @@ const makeMatchBold = (str) => {
 	let boldedMatch = str.replace(matched, makeBold);
 	return boldedMatch;
 }
+
 const removeBold = (str) => {
 	//replace < and > all characters between
 	return str.replace(/<(.)*?>/g, "");
 	// return str.replace(/<(strong)>/g, "").replace(/<\/(strong)>/g, "");
-}	/* NAVIGATING OVER THE LIST OF COUNTRIES W HIGHLIGHTING */	
+}	
+	
+
+/* NAVIGATING OVER THE LIST OF COUNTRIES W HIGHLIGHTING */	
 let hiLiteIndex = null;
 //$: console.log(hiLiteIndex);	
-$: hiLitedCountry = filteredSearches[hiLiteIndex]; 	
+$: hiLitedCountry = filteredCountries[hiLiteIndex]; 	
+	
 const navigateList = (e) => {
-	if (e.key === "ArrowDown" && hiLiteIndex <= filteredSearches.length-1) {
+	if (e.key === "ArrowDown" && hiLiteIndex <= filteredCountries.length-1) {
 		hiLiteIndex === null ? hiLiteIndex = 0 : hiLiteIndex += 1
 	} else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
-		hiLiteIndex === 0 ? hiLiteIndex = filteredSearches.length-1 : hiLiteIndex -= 1
+		hiLiteIndex === 0 ? hiLiteIndex = filteredCountries.length-1 : hiLiteIndex -= 1
 	} else if (e.key === "Enter") {
-		setInputVal(filteredSearches[hiLiteIndex]);
+		setInputVal(filteredCountries[hiLiteIndex]);
 	} else {
 		return;
 	}
 } 
 </script>
+<svelte:window on:keydown={navigateList} />
 
-<form method="POST" action="?/getSearchedEmailEvents">
-	<div align="center">
-		<input
-			name="email"
-			type="text"
-			placeholder="search by email"
-			class="input input-bordered input-primary w-100"
-		/>
-		<button class="btn btn-primary">Button</button>
-	</div>
+<form method="POST" autocomplete="off" action="?/getSearchedEmailEvents">
+  <div class="flex items-center max-w-md mx-auto py-1">
+   <div class="autocomplete">
+    <input name="email" id="country-input" 
+					 type="text" 
+					 placeholder="Search By Email" 
+					 bind:this={searchInput}
+					 bind:value={inputValue} 
+					 on:input={filterCountries}>
+  </div>
+	
+  <input type="submit">
+	
+</div>
+ 	<!-- FILTERED LIST OF COUNTRIES -->
+	{#if filteredCountries.length > 0}
+		<ul id="autocomplete-items-list">
+			{#each filteredCountries as country, i}
+				<Country itemLabel={country} highlighted={i === hiLiteIndex} on:click={() => setInputVal(country)} />
+			{/each}			
+		</ul>
+	{/if}
 </form>
+
+<!-- <form method="POST" action="?/getSearchedEmailEvents"> -->
+<!-- 	<div align="center"> -->
+<!-- 		<input -->
+<!-- 			name="email" -->
+<!-- 			type="text" -->
+<!-- 			placeholder="search by email" -->
+<!-- 			class="input input-bordered input-primary w-100" -->
+<!-- 		/> -->
+<!-- 		<button class="btn btn-primary">Button</button> -->
+<!-- 	</div> -->
+<!-- </form> -->
 <Calendar bind:this={ec} {plugins} {options} />
 
 <div class="flex flex-col items-center">
@@ -174,29 +215,7 @@ const navigateList = (e) => {
 <input type="hidden" name="userBookings" bind:value={allUserBookingsJson} />
 			</div>
 </form> 
-  <svelte:window on:keydown={navigateList} />
 
-<form autocomplete="off" on:submit|preventDefault={submitValue}>
-  <div class="autocomplete">
-    <input id="country-input" 
-					 type="text" 
-					 placeholder="Search Country Names" 
-					 bind:this={searchInput}
-					 bind:value={inputValue} 
-					 on:input={filterSearch}>
-  </div>
-	
-  <input type="submit">
-	
-	<!-- FILTERED LIST OF COUNTRIES -->
-	{#if filteredSearches.length > 0}
-		<ul id="autocomplete-items-list">
-			{#each filteredSearches as country, i}
-				<Country itemLabel={country} highlighted={i === hiLiteIndex} on:click={() => setInputVal(country)} />
-			{/each}			
-		</ul>
-	{/if}
-</form>
 <!-- used to style the search bar  -->
 <style>
 div.autocomplete {
@@ -204,6 +223,7 @@ div.autocomplete {
   position: relative;
   display: inline-block;
 	width: 300px;
+  padding-left: 100;
 }
 input {
   border: 1px solid transparent;
@@ -226,6 +246,7 @@ input[type=submit] {
 	margin: 0;
 	padding: 0;
 	top: 0;
+  left:735px;
 	width: 297px;
 	border: 1px solid #ddd;
 	background-color: #ddd;

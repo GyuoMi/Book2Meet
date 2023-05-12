@@ -10,17 +10,21 @@ let clientEmail;
 let userEmail;
 
 
-
+/** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
 		`Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
 
-  allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
+   let allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
 
   clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
-  console.log(allEmailsFromDatabase);
+  let emailArray = [];
+  for(let i =0; i < allEmailsFromDatabase.results.length;i++){
+    emailArray.push(allEmailsFromDatabase.results[i].CLIENT_EMAIL);
+  }
+  console.log(emailArray);
 	return {
-    emails: allEmailsFromDatabase,    
+    emails: emailArray,    
 	};
 }
 
