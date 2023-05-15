@@ -1,5 +1,14 @@
 <script>
 	import '../app.css';
+	import { bind } from "svelte";
+	/** @type {import('./$types').LayoutData} */
+    export let data;
+
+	console.log(data);
+  	//let bookings = data.post.results;
+	let bookings = data.post.results.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
+	
+
 </script>
 
 <html data-theme="autumn" />
@@ -50,13 +59,50 @@
 			/>
 		</a>
 	</div>
-  <div class="dropdown dropdown-end">
-    <button ><i class='far fa-bell' style='font-size:24px'></i>
-    </button>
-    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-      <li><a>Item 1</a></li>
-      <li><a>Item 2</a></li>
-    </ul>
-  </div>
+
+  	<div class="dropdown dropdown-end">
+    	<button ><i class='far fa-bell' style='font-size:24px'></i>
+    	</button>
+    	<ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-100">
+			<li>
+				<a><span class="no-events-message">Your Upcoming Bookings</span></a>
+			</li>
+			<li><hr class="dropdown-divider"></li>
+
+			<li>
+				{#if data.post.results.length > 0}
+				<div class="overflow-x-auto" style="max-width: 100%;">
+					<table class="table table-zebra w-full">
+					  <!-- head -->
+					  <thead>
+						<tr>
+						  <th></th>
+						  <th>Event Start</th>
+						  <th>Event End</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						{#each data.post.results as booking, index}
+						<tr>
+							<th>{index + 1}</th>
+                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+							<td>{new Date(booking.EVENT_END).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+						</tr>
+						{/each}
+					  </tbody>
+					</table>
+				</div>
+				{:else}
+        		<a><span class="no-events-message">No Upcoming Bookings</span></a>
+      			{/if}
+			</li>
+    	</ul>
+  	</div>
 </div>
-<slot />
+<slot/>
+
+<style>
+	.no-events-message {
+	  white-space: nowrap;
+	}
+  </style>
