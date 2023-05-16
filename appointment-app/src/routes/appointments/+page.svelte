@@ -12,6 +12,15 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
   
+
+  let rating;
+  try{
+    rating = Math.trunc(form.rating);
+  }
+  catch{
+    rating = 5;
+  }
+  
   const countries = data.emails;
   let allUserBookingsJson = [];
 	let userBookings = [];
@@ -185,17 +194,19 @@ const navigateList = (e) => {
 	{/if}
 </form>
 
-<!-- <form method="POST" action="?/getSearchedEmailEvents"> -->
-<!-- 	<div align="center"> -->
-<!-- 		<input -->
-<!-- 			name="email" -->
-<!-- 			type="text" -->
-<!-- 			placeholder="search by email" -->
-<!-- 			class="input input-bordered input-primary w-100" -->
-<!-- 		/> -->
-<!-- 		<button class="btn btn-primary">Button</button> -->
-<!-- 	</div> -->
-<!-- </form> -->
+
+<div class="flex flex-row-reverse px-5">
+<div class="rating">
+    {#each {length:5} as _, i}
+    {#if i == rating-1}
+  <input type="radio" name="rating-1" class="mask mask-star" checked />
+    {:else}
+  <input type="radio" name="rating-1" class="mask mask-star" />
+    {/if}
+{/each}
+</div>
+</div>
+
 <Calendar bind:this={ec} {plugins} {options} />
 
 <div class="flex flex-col items-center">
