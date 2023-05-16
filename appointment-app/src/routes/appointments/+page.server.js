@@ -10,13 +10,22 @@ let clientEmail;
 let userEmail;
 
 
-
+/** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
 	const eventsFromDatabase = await database.getJsonFromSelectQuery(
 		`Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
 
-    clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
-	
+   let allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
+
+  clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
+  let emailArray = [];
+  for(let i =0; i < allEmailsFromDatabase.results.length;i++){
+    emailArray.push(allEmailsFromDatabase.results[i].CLIENT_EMAIL);
+  }
+  console.log(emailArray);
+	return {
+    emails: emailArray,    
+	};
 }
 
 
@@ -84,6 +93,7 @@ export const actions = {
       eventStart.setHours(eventStart.getHours());
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
+
       await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
