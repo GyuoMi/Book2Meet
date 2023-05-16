@@ -9,10 +9,10 @@
   
   let rating;
   try{
-    rating = form.rating;
+    rating = Math.trunc(form.rating);
   }
   catch{
-    rating =5;
+    rating = 5;
   }
   // console.log(form.rating);
   let allUserBookingsJson = [];
