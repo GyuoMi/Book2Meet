@@ -30,7 +30,8 @@
 					<li><a>Profile</a></li>
 					<li><a>Schedule</a></li>
 					<li><a>Booking</a></li>
-					<li><a href="/Meetings">Past Meetings</a></li>
+					<li><a href="/analytics">Analytics</a></li>
+					<li><a href="/meetings">Past Meetings</a></li>
 					<li><a>About</a></li>
 				</ul>
 			</div>
