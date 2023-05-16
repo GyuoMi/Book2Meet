@@ -6,7 +6,15 @@
 	import { deleteEventFromCalender, getArrayOfEventsFromDatabase } from '../schedule/page.modules';
 	/** @type {import('./$types').ActionData} */
 	export let form;
-
+  
+  let rating;
+  try{
+    rating = form.rating;
+  }
+  catch{
+    rating =5;
+  }
+  // console.log(form.rating);
   let allUserBookingsJson = [];
 	let userBookings = [];
 	let clientEvents = getArrayOfEventsFromDatabase(form);
@@ -95,6 +103,18 @@
 		<button class="btn btn-primary">Button</button>
 	</div>
 </form>
+
+<div class="flex flex-row-reverse px-5">
+<div class="rating">
+    {#each {length:5} as _, i}
+    {#if i == rating-1}
+  <input type="radio" name="rating-1" class="mask mask-star" checked />
+    {:else}
+  <input type="radio" name="rating-1" class="mask mask-star" />
+    {/if}
+{/each}
+</div>
+</div>
 <Calendar bind:this={ec} {plugins} {options} />
 
 <div class="flex flex-col items-center">
