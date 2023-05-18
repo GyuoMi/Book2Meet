@@ -30,7 +30,7 @@ function handleClick() {
 					  <th>Meeting Name</th> 
 					  <th>Date</th> 
 					  <th>Time</th> 
-					  <th>Rate</th> 
+					  <th>Rating</th> 
 					  <th>Summary Notes</th> 
 					  
 					</tr>
@@ -54,7 +54,7 @@ function handleClick() {
 					  <td>
 
 							<!-- The button to open modal -->
-							<label for="my-modal-3" class="btn">view details</label>
+							<label for="my-modal-3" class="btn btn-primary">show notes</label>
 
 							<!-- Put this part before </body> tag -->
 							<input type="checkbox" id="my-modal-3" class="modal-toggle" />
@@ -102,7 +102,7 @@ function handleClick() {
 									<div class=" card-body">
 									  <h2 class="card-title">Summary Notes</h2>
 									  <p class="relative" style="position:relative; left:1px;right:5px">We discussed a possible acquisition of Roths&Co with a market cap of $20billion, This would make some shareholders happy.</p>
-									  <textarea class="textarea textarea-primary" placeholder="Bio"></textarea> 
+									  <textarea class="textarea textarea-primary" placeholder="Comments/Notes"></textarea> 
 									  <div class="card-actions justify-end">
 									  </div>
 									</div>
@@ -131,7 +131,7 @@ function handleClick() {
 						<td>
   
 							  <!-- The button to open modal -->
-							  <label for="my-modal-3" class="btn">view details</label>
+							  <label for="my-modal-3" class="btn btn-primary">show notes</label>
   
 							  <!-- Put this part before </body> tag -->
 							  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
