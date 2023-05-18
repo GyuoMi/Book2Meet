@@ -47,90 +47,97 @@
 <!--
   Email field
 -->
-<form method="POST" action="?/login">
-		<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-			<div class="card-body">
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Email Address</span>
-					</label>
-					<input
-						type="text"
-						placeholder="john.snow@gmail.com"
-						name="email"
-						class="input input-bordered"
-						bind:value={email}
-						on:input={() => {
-							if (!emailPattern.test(email)) {
-								emailError = 'Invalid email address';
-							} else {
-								emailError = '';
-								emailValid = true;
-							}
-						}}
-					/>
-					{#if emailError}
-						<p class="text-red-600 text-sm">{emailError}</p>
-					{/if}
-				</div>
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Password</span>
-					</label>
-					<input type="text" name="password" placeholder="Password" class="input input-bordered" />
-					<label class="label">
-						<a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-					</label>
-				</div>
+		<form method="POST" action="?/login">
+			<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+				<div class="card-body">
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text text-primary">Email Address</span>
+						</label>
+						<input
+							type="text"
+							placeholder="john.snow@gmail.com"
+							name="email"
+							class="input input-bordered"
+							bind:value={email}
+							on:input={() => {
+								if (!emailPattern.test(email)) {
+									emailError = 'Invalid email address';
+								} else {
+									emailError = '';
+									emailValid = true;
+								}
+							}}
+						/>
+						{#if emailError}
+							<p class="text-red-600 text-sm">{emailError}</p>
+						{/if}
+					</div>
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text text-primary">Password</span>
+						</label>
+						<input
+							type="text"
+							name="password"
+							placeholder="Password"
+							class="input input-bordered"
+						/>
+						<label class="label">
+							<a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+						</label>
+					</div>
 
-				<div class="error-message">
-					{#if formErrorMessage}
-						<div class="alert alert-error shadow-lg mt-0" style="height:20px">
-							<div>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-current flex-shrink-0 h-6 w-6"
-									fill="none"
-									viewBox="0 0 24 24"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-									/></svg
-								>
-								<span style="font-size: 14px;">Please fill in all the required fields.</span>
+					<div class="error-message">
+						{#if formErrorMessage}
+							<div class="alert alert-error shadow-lg mt-0" style="height:20px">
+								<div>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-current flex-shrink-0 h-6 w-6"
+										fill="none"
+										viewBox="0 0 24 24"
+										><path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+										/></svg
+									>
+									<span style="font-size: 14px;">Please fill in all the required fields.</span>
+								</div>
 							</div>
-						</div>
-					{/if}
-				</div>
+						{/if}
+					</div>
 
-				<div class="form-control mt-6">
-					<button class="btn btn-primary">
-						login
-						<!--
+					<div class="form-control mt-6">
+						<button class="btn btn-primary">
+							login
+							<!--
 							<a href={emailValid ? '/schedule' : '#'} on:click={handleClick}
 						>Login</a
 					>
 						-->
-					<button/>
-				</div>
+							<button />
+						</button>
+					</div>
 
-				<label class="label">
-					<span class="label-text" style="position:absolute; left:85px; bottom:30px"
-						>Do not have an account?</span
-					>
-					<a
-						href="/signup"
-						class="label-text-alt link link-primary link-hover underline"
-						style="position:absolute; left:244px; bottom:31px">SIGN UP!</a
-					>
-				</label>
+					<label class="label">
+						<span class="label-text" style="position:absolute; left:85px; bottom:30px"
+							>Do not have an account?</span
+						>
+						<a
+							href="/signup"
+							class="label-text-alt link link-primary link-hover underline"
+							style="position:absolute; left:244px; bottom:31px">SIGN UP!</a
+						>
+					</label>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
-<form/>
+<form />
 <!-- 
    Footer
 -->
