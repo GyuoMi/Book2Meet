@@ -1,14 +1,50 @@
 import database from '../api/database.js'
 //gets the currently logged in users ID
 import { _clientID } from '../login/+page.server.js';
+import { sendEmail } from '../api/emailConfig.js'
+
 import { convertTimezoneOfEventList } from '../timezone.js';
 let currentlyViewedClient;
+let clientEmail;
+//email is the email for the person the client has searched up and wants to book
+let userEmail;
+
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ params }) {
+  const eventsFromDatabase = await database.getJsonFromSelectQuery(
+    `Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+
+
+   let allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
+
+  clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
+  let emailArray = [];
+  for(let i =0; i < allEmailsFromDatabase.results.length;i++){
+    emailArray.push(allEmailsFromDatabase.results[i].CLIENT_EMAIL);
+  }
+  console.log(emailArray);
+	return {
+    emails: emailArray,    
+	};
+
+}
+
+
+
+
 /** @type {import('./$types').Actions} */
 export const actions = {
   getSearchedEmailEvents: async ({ request }) => {
     const responseData = await request.formData();
     const email = responseData.get('email');
+    //setting user email so that it can be used for sending off the notification
+    userEmail = email;
     //getting the searched users ID
+
+    let userRating = await database.getJsonFromSelectQuery(`Select CLIENT_RATING from CLIENT_TBL where CLIENT_EMAIL = "${email}"`);
+
+
     let userEvents = await database.getJsonFromSelectQuery(
       `Select EVENT_TBL.CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR FROM EVENT_TBL RIGHT JOIN CLIENT_TBL ON EVENT_TBL.CLIENT_ID = CLIENT_TBL.CLIENT_ID WHERE CLIENT_TBL.CLIENT_EMAIL = "${email}"`);
     try {
@@ -40,10 +76,12 @@ export const actions = {
 
     let userTimeZone = await database.getJsonFromSelectQuery(`Select CLIENT_TIMEZONE from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
     let convertedTimeZones = convertTimezoneOfEventList(allEvents, userTimeZone.results[0].CLIENT_TIMEZONE);
-    
+
+    console.log();
     return {
       success: true,
       post: allEvents,
+      rating: userRating.results[0].CLIENT_RATING
     };
   },
   //TODO you need to then save all the bookings a guy made 
@@ -63,7 +101,9 @@ export const actions = {
       eventStart.setHours(eventStart.getHours());
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
+
       await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
+      sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }
   }
 }
