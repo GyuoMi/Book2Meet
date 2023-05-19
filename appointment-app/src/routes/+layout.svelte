@@ -1,6 +1,5 @@
 <script>
 	import '../app.css';
-	import { bind } from "svelte";
 	/** @type {import('./$types').LayoutData} */
     export let data;
 
@@ -108,7 +107,7 @@
     	</ul>
   	</div>
 </div>
-<slot/>
+
 
 <!--
 	so that the messages displayed in the dropdown appears in one line
@@ -118,4 +117,8 @@
 	.no-events-message {
 	  white-space: nowrap;
 	}
+
 </style>
+
+<slot/>
+
