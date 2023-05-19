@@ -20,7 +20,7 @@
   catch{
     rating = 5;
   }
-  
+//gets all possible emails from the database and stories them in list to be searched up 
   const countries = data.emails;
   let allUserBookingsJson = [];
 	let userBookings = [];
@@ -184,7 +184,8 @@ const navigateList = (e) => {
   <input type="submit">
 	
 </div>
- 	<!-- FILTERED LIST OF COUNTRIES -->
+
+ 	<!-- FILTERED LIST OF EMAILS FROM DATABASE-->
 	{#if filteredCountries.length > 0}
 		<ul id="autocomplete-items-list">
 			{#each filteredCountries as country, i}
@@ -194,7 +195,7 @@ const navigateList = (e) => {
 	{/if}
 </form>
 
-
+  <!-- sets the star rating on of the user  -->
 <div class="flex flex-row-reverse px-5">
     {#each {length:5} as _, i}
     {#if i > Math.abs(5-rating)-1}
