@@ -2,8 +2,8 @@
   export let itemLabel;
 	export let highlighted;
 </script>
-
 <style>
+/*styles for the suggested search*/
 li.autocomplete-items {
 	list-style: none;
   border-bottom: 1px solid #d4d4d4;

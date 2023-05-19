@@ -18,6 +18,7 @@ export async function load({ params }) {
 
    let allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
 
+  //the following code returns the possible suggested searces from all availible emails
   clientEmail = eventsFromDatabase.results[0].CLIENT_EMAIL;
   let emailArray = [];
   for(let i =0; i < allEmailsFromDatabase.results.length;i++){
@@ -102,6 +103,7 @@ export const actions = {
       eventEnd = new Date(eventListJson[i].end);
       eventEnd.setHours(eventEnd.getHours());
 
+      //to toISOString converts the date from the calender into something that can be inserted into the database
       await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd,)
     }

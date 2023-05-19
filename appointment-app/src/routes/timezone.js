@@ -1,11 +1,11 @@
 import { DateTime } from "luxon";
-
+//takes in a UCT date from the database then converts it to the clients timezone
 export function convertDateToClientTimezone(uctTimeFromDb,clientTimezone){
   let uctTime = DateTime.fromISO(uctTimeFromDb);
   let rezonedTime = uctTime.setZone(clientTimezone);
   return rezonedTime.toString();
 }
-
+//converts a list of events from the calendar to the users timezone
 export function convertTimezoneOfEventList(eventList, clientTimezone) {
   for (let i = 0; i < eventList.results.length; i++) {
     eventList.results[i].EVENT_START = convertDateToClientTimezone(eventList.results[i].EVENT_START, clientTimezone);
@@ -17,7 +17,7 @@ export function convertTimezoneOfEventList(eventList, clientTimezone) {
 export function covertDateToUTC(date){
 
 }    
-
+//list of all availableTimeZones
 export const availableTimeZones= [
   'Europe/Andorra',
   'Asia/Dubai',
