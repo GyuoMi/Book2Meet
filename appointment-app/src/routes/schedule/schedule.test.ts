@@ -5,6 +5,7 @@ import Calendar from '@event-calendar/core';
 import TimeGrid from '@event-calendar/time-grid';
 import Interaction from '@event-calendar/interaction';
 import {createEventWithPointer} from './+page.svelte';
+//checks to see if conversion works correctly when inserting into database
 describe('equivalence tests', () => {
 	it('checks if convertJsonToEventObject works as expected', () => {
 
