@@ -1,6 +1,5 @@
 <script>
 	import '../app.css';
-	import { bind } from "svelte";
 	/** @type {import('./$types').LayoutData} */
     export let data;
 
