@@ -1,7 +1,7 @@
-import database from '../api/database.js';
+import database from '../../api/database.js';
 //CHANGE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-import { _clientID } from '../login/+page.server.js';
-import { convertTimezoneOfEventList} from '../timezone.js';
+import { _clientID } from '../../login/+page.server.js';
+import { convertTimezoneOfEventList} from '../../timezone.js';
 /* For further details of svelte actions go to https://kit.svelte.dev/docs/load
 
 gets all client events from the database and sends it to the front end in a post object*/

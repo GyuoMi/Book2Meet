@@ -40,10 +40,10 @@
 		<div>
 			<h1 class="text-5xl font-bold">Ready to Book an Appointment?</h1>
 			<p class="py-6">
-				Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-				quasi. In deleniti eaque aut repudiandae et a id nisi.
 			</p>
-			<button class="btn btn-primary">Get Started</button>
+
+			<a href="/signup"><button class="btn btn-primary">Sign up</button></a>
+			<a href="/login"><button class="btn btn-primary">Login</button></a>
 		</div>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 			<h2 class="card-title">Schedule Your Calender</h2>
 			<p>This is where you can indicate your available times on the calender.</p>
 			<div class="card-actions justify-end">
-				<a href="/schedule" class="btn btn-primary">Schedule</a>
+				<!-- <a href="/schedule" class="btn btn-primary">Schedule</a> -->
 			</div>
 		</div>
 	</div>
@@ -74,7 +74,7 @@
 			<h2 class="card-title">Book Sessions</h2>
 			<p>This is where you can book sessions with other users</p>
 			<div class="card-actions justify-end">
-				<button class="btn btn-primary">Book</button>
+				<!-- <button class="btn btn-primary">Book</button> -->
 			</div>
 		</div>
 	</div>
@@ -226,8 +226,7 @@
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
-					class="fill-current"
-					><path
+					class="fill-current" ><path
 						d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
 					/></svg
 				></a
@@ -236,4 +235,3 @@
 	</div>
 </footer>
 
-<slot />

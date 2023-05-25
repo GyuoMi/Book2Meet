@@ -1,5 +1,5 @@
-import database from '../routes/api/database.js';
-import {_clientID} from '../routes/login/+page.server.js';
+import database from '../api/database.js';
+import {_clientID} from '../login/+page.server.js';
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load() {
