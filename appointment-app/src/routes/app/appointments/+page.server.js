@@ -1,7 +1,7 @@
-import database from '../api/database.js'
+import database from '../../api/database.js'
 //gets the currently logged in users ID
-import { _clientID } from '../login/+page.server.js';
-import { sendEmail } from '../api/emailConfig.js'
+import { _clientID } from '../../login/+page.server.js';
+import { sendEmail } from '../../api/emailConfig.js'
 
 import { convertTimezoneOfEventList } from '../timezone.js';
 let currentlyViewedClient;
