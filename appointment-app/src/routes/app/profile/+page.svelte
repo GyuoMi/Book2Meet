@@ -1,6 +1,6 @@
 <script lang = "ts">
 
-  import {availableTimeZones} from '../timezone.js';
+  import {availableTimeZones} from '../../timezone.js';
 
   	/** @type {import('./$types').PageServerLoad} */
 	  export let data;

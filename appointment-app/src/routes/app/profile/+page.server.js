@@ -1,5 +1,5 @@
-import database from '../api/database.js';
-import {_clientID} from '../login/+page.server.js';
+import database from '../../api/database.js';
+import {_clientID} from '../../login/+page.server.js';
 
 /* For further details of svelte actions go to https://kit.svelte.dev/docs/load
 
