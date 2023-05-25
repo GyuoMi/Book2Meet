@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2023-05-17T18:48:43.833Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="-IDigVUT6Q1jKmb6vTnk" version="21.2.8" type="device">
+  <diagram name="Page-1" id="WNWiZXPYhpx8LypfWTKF">
+    <mxGraphModel dx="702" dy="774" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YwVznj0quAibXx4Ktkzk-1" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="90" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="YwVznj0quAibXx4Ktkzk-1" parent="1" target="YwVznj0quAibXx4Ktkzk-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="YwVznj0quAibXx4Ktkzk-3" target="YwVznj0quAibXx4Ktkzk-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-3" value="User searches for bookie" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="YwVznj0quAibXx4Ktkzk-5" target="YwVznj0quAibXx4Ktkzk-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-5" value="Average Rating of Bookie is returned from database" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="YwVznj0quAibXx4Ktkzk-6" target="YwVznj0quAibXx4Ktkzk-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-6" value="Front end is updated dynamically to reflect user rating " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="YwVznj0quAibXx4Ktkzk-9" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="500" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

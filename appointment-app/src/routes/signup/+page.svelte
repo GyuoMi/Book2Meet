@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
-
-  /** @type {import('./$types').ActionData} */  
-  export let form;
+  import {availableTimeZones} from '../timezone.js';
+	/** @type {import('./$types').ActionData} */
+	export let form;
 
 	let password = '';
 	let confirmPassword = '';
@@ -99,7 +99,6 @@
 		}
 		return;
 	}
-
 </script>
 
 <!-- 
@@ -294,19 +293,27 @@
 							</div>
 						{/if}
 					</div>
-
+              <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text mt-1 text-sm font-bold">Choose Time Zone</span>
+  </label>
+  <select name="timeZone" class="select select-bordered">
+    <option disabled selected>Pick one</option>
+    {#each availableTimeZones as timeZone}
+    <option>{timeZone}</option>
+    {/each}
+  </select>
+</div>
 					<div class="form-control mt-6">
-						<button  formaction="?/signup" class="btn btn-primary">
+						<button formaction="?/signup" class="btn btn-primary">
 							Sign Up
-								<!-- <a
+							<!-- <a
 								href={emailValid && passwordValid && confirmPasswordValid ? '/login' : '#'}
 								on:click={handleClick}>SIGN UP</a
 							> -->
-							
-							
 						</button>
 					</div>
-					
+
 					<form />
 
 					<label class="label">
@@ -417,7 +424,5 @@
 		</div>
 	</div>
 </footer>
-
-
 
 <slot />

@@ -1,5 +1,4 @@
-import { fireEvent, render, screen, expect } from "@testing-library/svelte";
-import "@testing-library/jest/extend-expect";
+import { fireEvent, render, screen,expect} from "@testing-library/svelte";
 // import { expect } from 'vitest';
 import userEvent from "@testing-library/user-event";
 import SignupForm from "./+page.svelte";

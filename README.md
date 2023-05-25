@@ -1,5 +1,9 @@
 # Book2Meet - Appointment Booking System
 
+| Statements                  | Branches                | Functions                 | Lines             |
+| --------------------------- | ----------------------- | ------------------------- | ----------------- |
+| ![Statements](https://img.shields.io/badge/statements-96.44%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-20%25-red.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-96.44%25-brightgreen.svg?style=flat) |
+
 This website will allow a user to schedule meetings with other
 users. 
 
