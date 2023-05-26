@@ -90,7 +90,7 @@
     Lenox ~ I modififed the navbar Book2Meet button that when it is clicked it takes us back to the welcome page
   -->
 	<div class="flex-1">
-		<a href=".">
+		<a href="/">
 			<img
 				src="/images/book2meet.png"
 				class="rounded-lg"
