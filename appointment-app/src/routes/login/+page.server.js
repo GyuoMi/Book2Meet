@@ -17,7 +17,7 @@ export const actions = {
 		if (clientData.results.length > 0) {
 			if (password == clientData.results[0].CLIENT_PASSWORD) {
 				_clientID = clientData.results[0].CLIENT_ID;
-				throw redirect(303, '/schedule');
+				throw redirect(303, '/app/schedule');
 			}
 		} else {
 			return { success: false };
