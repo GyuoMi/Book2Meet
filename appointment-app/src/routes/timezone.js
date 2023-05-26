@@ -14,9 +14,6 @@ export function convertTimezoneOfEventList(eventList, clientTimezone) {
   return eventList;
 }
 
-export function covertDateToUTC(date){
-
-}    
 //list of all availableTimeZones
 export const availableTimeZones= [
   'Europe/Andorra',
