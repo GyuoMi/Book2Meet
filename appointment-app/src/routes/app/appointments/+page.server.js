@@ -3,7 +3,7 @@ import database from '../../api/database.js'
 import { _clientID } from '../../login/+page.server.js';
 import { sendEmail } from '../../api/emailConfig.js'
 
-import { convertTimezoneOfEventList } from '../timezone.js';
+import { convertTimezoneOfEventList } from '../../timezone.js';
 let currentlyViewedClient;
 let clientEmail;
 //email is the email for the person the client has searched up and wants to book
