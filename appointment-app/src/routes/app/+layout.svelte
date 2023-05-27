@@ -39,7 +39,6 @@
             cancelledBookings.push(booking);
         	}
 		}
-		console.log(eventWaitingList)
   });
 
   function getDuration(start, end) {
@@ -136,8 +135,8 @@
 						{#each bookings as booking}
 						<!--the rows of the table-->
 						<tr>
-							<th>{booking.EVENT_ID}</th>
-                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+							<th>{booking.CLIENT_FIRST_NAME} {booking.CLIENT_LAST_NAME}</th>
+                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })}</td>
 							<td>{getDuration(booking.EVENT_START, booking.EVENT_END)}</td>
 						</tr>
 						{/each}
@@ -177,8 +176,8 @@
 						{#each waitingList as booking}
 						<!--the rows of the table-->
 						<tr>
-							<th>{booking.EVENT_ID}</th>
-                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+							<th>{booking.CLIENT_FIRST_NAME} {booking.CLIENT_LAST_NAME}</th>
+                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })}</td>
 							<td>{getDuration(booking.EVENT_START, booking.EVENT_END)}</td>
 						</tr>
 						{/each}
@@ -218,8 +217,8 @@
 						{#each cancelledBookings as booking}
 						<!--the rows of the table-->
 						<tr>
-							<th>{booking.EVENT_ID}</th>
-                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+							<th>{booking.CLIENT_FIRST_NAME} {booking.CLIENT_LAST_NAME}</th>
+                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })}</td>
 							<td>{getDuration(booking.EVENT_START, booking.EVENT_END)}</td>
 						</tr>
 						{/each}
