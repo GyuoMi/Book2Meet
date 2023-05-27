@@ -126,7 +126,7 @@
 					  <thead>
 						<tr>
 						  <th>Booked With</th>
-						  <th>Event Start</th>
+						  <th>Time</th>
 						  <th>Duration</th>
 						</tr>
 					  </thead>
@@ -167,7 +167,7 @@
 					  <thead>
 						<tr>
 						  <th>Booked With</th>
-						  <th>Event Start</th>
+						  <th>Time</th>
 						  <th>Duration</th>
 						</tr>
 					  </thead>
@@ -208,7 +208,7 @@
 					  <thead>
 						<tr>
 						  <th>Booked With</th>
-						  <th>Event Start</th>
+						  <th>Time</th>
 						  <th>Duration</th>
 						</tr>
 					  </thead>
