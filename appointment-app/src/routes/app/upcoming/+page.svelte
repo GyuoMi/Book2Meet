@@ -1,12 +1,47 @@
 <script>
+    /** @type {import('./$types').LayoutData} */
+    export let data;
+	console.log(data);
 
-    let showMessage = false;
+	//obtain the seperate queries from data
+	let bookingDetails = data.bookingDetails.results;
+	let allBookings = data.allBookings.results;
+
+  	//sort the results returned according to the start date/times
+	let bookings = [];
+	bookingDetails.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
+	let waitingList = [];
+	allBookings.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
+	let cancelledBookings = [];
+
+	bookingDetails.forEach(function(booking) {
+    	let eventId = booking.EVENT_ID;
+    	console.log('EVENT_ID:', eventId);
+		let eventWaitingList = [];
+    	allBookings.forEach(function(entry) {
+			if(entry.EVENT_ID === eventId){
+				eventWaitingList = eventWaitingList.concat(entry)
+			}
+			eventWaitingList.sort((a, b) => new Date(a.DATE_BOOKED) - new Date(b.DATE_BOOKED));
+			
+		});
+		if (eventWaitingList.length > 0 && eventWaitingList[0].CLIENT_ID === booking.CLIENT_ID) {
+      		if (booking.BOOKING_VALID) {
+            bookings.push(booking);
+        	} else {
+            cancelledBookings.push(booking);
+        	}
+		}else{
+			if (booking.BOOKING_VALID) {
+            waitingList.push(booking);
+       		} else {
+            cancelledBookings.push(booking);
+        	}
+		}
+		console.log(eventWaitingList)
+  });
     
-    function handleClick() {
-      showMessage = !showMessage;
-      
-    }
-    </script>
+</script>
     
     
     
@@ -21,140 +56,29 @@
     
         <div class="card w-5/6 bg-base-100 shadow-xl" style="position:absolute; top:200px">
             <div class="card-body">
-    
                 <div class="overflow-x-auto">
                     <table class="table table-compact w-full">
                       <thead>
                         <tr>
                           <th></th> 
                           <th>Meeting Name</th> 
-                          <th>Date</th> 
+                          <th>Booked With</th> 
                           <th>Time</th> 
-                          <th>Rating</th> 
-                          <th>Summary Notes</th> 
-                          
                         </tr>
                       </thead> 
                       <tbody>
-                        <tr>
-                          <th>1</th> 
-                          <td>Meeting 1</td> 
-                          <td>01/01/2023</td> 
-                          <td>12:30-13:30</td>
-                          <td>
-                            <div class="rating">
-                                <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
-                                <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" checked />
-                                <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
-                                <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
-                                <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
-                              </div>
-            
-                          </td> 
-                          <td>
-    
-                                <!-- The button to open modal -->
-                                <label for="my-modal-3" class="btn btn-primary">show notes</label>
-    
-                                <!-- Put this part before </body> tag -->
-                                <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-                                <div class="modal " >
-                                <div class="modal-box relative " >
-                                    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2" >✕</label>
-                                    <h3 class="text-lg font-bold">Summary Notes</h3>
-                                    <p class="py-4"> You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                                </div>
-                                </div>
-                          </td> 
-                          
-                        </tr>
-                        <tr>
-                            <th>2</th> 
-                            <td>Meeting 2</td> 
-                            <td>01/01/2023</td>
-                            <td>12:00-14:30</td> 
-                            <td>
-                              <div class="rating">
-                                  <input type="radio" name="rating-3" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-3" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-3" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-3" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-3" class="mask mask-star-2 bg-primary" />
-                                </div>
-              
-                            </td> 
-                            <td>
-      
-                                <div>
-                                    <button class="btn btn-primary" on:click={handleClick}>
-                                      {#if showMessage}
-                                        Hide Notes
-                                      {:else}
-                                        Show Notes
-                                      {/if}
-                                    </button>
-                                    {#if showMessage}
-                                    
-                                    <div class="modal">
-    
-                                    </div>
-                                    <div class="card w-96 bg-base-100">
-                                        <div class=" card-body">
-                                          <h2 class="card-title">Summary Notes</h2>
-                                          <p class="relative" style="position:relative; left:1px;right:5px">We discussed a possible acquisition of Roths&Co with a market cap of $20billion, This would make some shareholders happy.</p>
-                                          <textarea class="textarea textarea-primary" placeholder="Comments/Notes"></textarea> 
-                                          <div class="card-actions justify-end">
-                                          </div>
-                                        </div>
-                                      </div>
-                                    {/if}
-                                  </div>
-                      
-                            </td> 
-                            
-                          </tr>
-                          <tr>
-                            <th>3</th> 
-                            <td>Meeting 3</td> 
-                            <td>01/01/2023</td>
-                            <td>19:00-19:40</td> 
-                            <td>
-                              <div class="rating">
-                                  <input type="radio" name="rating-4" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-4" class="mask mask-star-2 bg-primary" checked />
-                                  <input type="radio" name="rating-4" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-4" class="mask mask-star-2 bg-primary" />
-                                  <input type="radio" name="rating-4" class="mask mask-star-2 bg-primary" />
-                                </div>
-              
-                            </td> 
-                            <td>
-      
-                                  <!-- The button to open modal -->
-                                  <label for="my-modal-3" class="btn btn-primary">show notes</label>
-      
-                                  <!-- Put this part before </body> tag -->
-                                  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-                                  <div class="modal" >
-                                  <div class="modal-box relative " >
-                                      <label for="my-modal-3" class="btn btn-sm btn-circle right-2 top-2" >✕</label>
-                                      <h3 class="text-lg font-bold">Summary Notes</h3>
-                                      <p class="py-4"> You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                                  </div>
-                                  </div>
-                            </td> 
-                            
-                          </tr>
-                    
-                        
+                        <!--loops over every object returned from backend-->
+						{#each bookings as booking}
+						<!--the rows of the table-->
+						<tr>
+							<th>{booking.EVENT_ID}</th>
+                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
+							<td>{(booking.EVENT_START + " - " + booking.EVENT_END)}</td>
+						</tr>
+						{/each}
+                      </tbody> 
                     </table>
-            
-                
-                    
-                </div>
-                
-              
-    
+                  </div>
             </div>
           </div>
         
