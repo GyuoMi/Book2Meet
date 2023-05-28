@@ -5,9 +5,12 @@ import {_clientID} from '../login/+page.server.js';
 export async function load() {
   let bookingDetailsFromDatabaseJson;
   let allBookings;
+
 //checks if clientID is defined before trying to access database with this value
 //if client has not logged in yet return an empty json
+  let clientId = cookies.get('clientId');
   if (_clientID !== undefined) {
+
     bookingDetailsFromDatabaseJson = await database.getJsonFromSelectQuery(
       `select B.*, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME from BOOKING_TBL B 
       JOIN(SELECT E.EVENT_ID, E.CLIENT_ID, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME FROM EVENT_TBL E JOIN CLIENT_TBL C 
@@ -15,6 +18,7 @@ export async function load() {
     );
     allBookings = await database.getJsonFromSelectQuery(
       `select * from BOOKING_TBL where EVENT_START > NOW()`
+
     );
   } else {
     bookingDetailsFromDatabaseJson = { results: [] };

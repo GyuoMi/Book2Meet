@@ -1,6 +1,5 @@
 import database from '../../api/database.js'
 //gets the currently logged in users ID
-import { _clientID } from '../../login/+page.server.js';
 import { sendEmail } from '../../api/emailConfig.js'
 
 import { convertTimezoneOfEventList } from '../../timezone.js';
@@ -11,9 +10,10 @@ let userEmail;
 
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ params }) {
+export async function load({ params, cookies }) {
+  let clientId = cookies.get('clientId');
   const eventsFromDatabase = await database.getJsonFromSelectQuery(
-    `Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+    `Select CLIENT_EMAIL from CLIENT_TBL where CLIENT_ID = ${clientId}`);
 
 
    let allEmailsFromDatabase = await database.getJsonFromSelectQuery(`Select CLIENT_EMAIL from CLIENT_TBL`);
@@ -36,7 +36,8 @@ export async function load({ params }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-  getSearchedEmailEvents: async ({ request }) => {
+  getSearchedEmailEvents: async ({ request , cookies}) => {
+    let clientId = cookies.get('clientId');
     const responseData = await request.formData();
     const email = responseData.get('email');
     //setting user email so that it can be used for sending off the notification
@@ -58,8 +59,7 @@ export const actions = {
     //todo get this to work you were trying to basically display all the events that a person booked with a user
     let clientBookings = [];
     try {
-
-      clientBookings = await database.getJsonFromSelectQuery(`Select EVENT_TBL.EVENT_ID,BOOKING_TBL.EVENT_START,BOOKING_TBL.EVENT_END,BOOKING_TBL.EVENT_TITLE,EVENT_TBL.EVENT_COLOR FROM BOOKING_TBL LEFT JOIN EVENT_TBL ON BOOKING_TBL.EVENT_ID = EVENT_TBL.EVENT_ID where BOOKING_TBL.CLIENT_ID = ${_clientID} and EVENT_TBL.CLIENT_ID = ${currentlyViewedClient}`);
+      clientBookings = await database.getJsonFromSelectQuery(`Select EVENT_TBL.EVENT_ID,BOOKING_TBL.EVENT_START,BOOKING_TBL.EVENT_END,BOOKING_TBL.EVENT_TITLE,EVENT_TBL.EVENT_COLOR FROM BOOKING_TBL LEFT JOIN EVENT_TBL ON BOOKING_TBL.EVENT_ID = EVENT_TBL.EVENT_ID where BOOKING_TBL.CLIENT_ID = ${clientId} and EVENT_TBL.CLIENT_ID = ${currentlyViewedClient}`);
     }
     catch {
 
@@ -75,7 +75,7 @@ export const actions = {
       allEvents = userEvents;
     }
 
-    let userTimeZone = await database.getJsonFromSelectQuery(`Select CLIENT_TIMEZONE from CLIENT_TBL where CLIENT_ID = ${_clientID}`);
+    let userTimeZone = await database.getJsonFromSelectQuery(`Select CLIENT_TIMEZONE from CLIENT_TBL where CLIENT_ID = ${clientId}`);
     let convertedTimeZones = convertTimezoneOfEventList(allEvents, userTimeZone.results[0].CLIENT_TIMEZONE);
 
     console.log();
@@ -86,7 +86,8 @@ export const actions = {
     };
   },
   //TODO you need to then save all the bookings a guy made 
-  saveBookings: async ({ request }) => {
+  saveBookings: async ({ request ,cookies}) => {
+    let clientId = cookies.get('clientId');
     const responseData = await request.formData();
     console.log(responseData);
     const eventListJson = JSON.parse(responseData.get('userBookings'));
@@ -104,7 +105,7 @@ export const actions = {
       eventEnd.setHours(eventEnd.getHours());
 
       //to toISOString converts the date from the calender into something that can be inserted into the database
-      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL(CLIENT_ID,EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE) values(?,?,?,?,?)', [clientId, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd);
     }
   }
