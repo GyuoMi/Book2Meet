@@ -9,7 +9,7 @@ export async function load({cookies}) {
 //checks if clientID is defined before trying to access database with this value
 //if client has not logged in yet return an empty json
   let clientId = cookies.get('clientId');
-  if (_clientID !== undefined) {
+  if (clientId !== undefined) {
 
     bookingDetailsFromDatabaseJson = await database.getJsonFromSelectQuery(
       `select B.*, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME from BOOKING_TBL B 
