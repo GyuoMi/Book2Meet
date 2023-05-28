@@ -2,7 +2,7 @@ import database from '../api/database.js';
 import {_clientID} from '../login/+page.server.js';
 
 /** @type {import('./$types').LayoutServerLoad} */
-export async function load() {
+export async function load({cookies}) {
   let bookingDetailsFromDatabaseJson;
   let allBookings;
 
