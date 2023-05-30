@@ -19,7 +19,10 @@ export async function load({cookies}) {
       ON E.CLIENT_ID = C.CLIENT_ID) AS C ON B.EVENT_ID = C.EVENT_ID where B.CLIENT_ID = ${clientId} AND B.EVENT_START > NOW()`
     );
     allBookings = await database.getJsonFromSelectQuery(
-      `select * from BOOKING_TBL where EVENT_START > NOW()`
+      `SELECT B.*, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME
+      FROM BOOKING_TBL B
+      JOIN CLIENT_TBL C ON B.CLIENT_ID = C.CLIENT_ID
+      WHERE B.EVENT_START > NOW();`
 
     );
   } else {
