@@ -19,9 +19,9 @@ export function getArrayOfEventsFromDatabase(data) {
   }
 		let eventsJson = data.post.results;
 		let eventObjects = [];
-   if (eventsJson[0]['EVENT_ID'] == null){
-     return [];
-   }
+   // if (eventsJson[0]['EVENT_ID'] == null){
+     // return [];
+   // }
 		for (let i = 0; i < eventsJson.length; i++) { 
 			eventObjects.push(convertJsonToEventObject(eventsJson[i]));
 		}
