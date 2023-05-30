@@ -1,5 +1,5 @@
 <script>
-    /** @type {import('./$types').LayoutData} */
+    /** @type {import('./$types').PageServerLoad} */
     export let data;
 	console.log(data);
 
@@ -60,7 +60,6 @@
                     <table class="table table-compact w-full">
                       <thead>
                         <tr>
-                          <th></th> 
                           <th>Meeting Name</th> 
                           <th>Booked With</th> 
                           <th>Time</th> 
@@ -71,9 +70,9 @@
 						{#each bookings as booking}
 						<!--the rows of the table-->
 						<tr>
-							<th>{booking.EVENT_ID}</th>
-                			<td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
-							<td>{(booking.EVENT_START + " - " + booking.EVENT_END)}</td>
+                            <td>{booking.EVENT_TITLE}</td>
+							<td>{booking.CLIENT_FIRST_NAME + " " + booking.CLIENT_LAST_NAME}</td>
+                            <td>{new Date(booking.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</td>
 						</tr>
 						{/each}
                       </tbody> 
