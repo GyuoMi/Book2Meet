@@ -105,7 +105,7 @@ export const actions = {
       eventEnd.setHours(eventEnd.getHours());
 
       //to toISOString converts the date from the calender into something that can be inserted into the database
-      await database.mysqlconn.query('INSERT INTO BOOKING_TBL (CLIENT_ID, EVENT_ID, EVENT_START, EVENT_END, EVENT_TITLE, DATE, DATE_BOOKED) VALUES (?, ?, ?, ?, ?, NOW(), ?)', [_clientID, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle, new Date().toISOString()]);
+      await database.mysqlconn.query('INSERT INTO BOOKING_TBL (CLIENT_ID, EVENT_ID, EVENT_START, EVENT_END, EVENT_TITLE, DATE, DATE_BOOKED) VALUES (?, ?, ?, ?, ?, NOW(), ?)', [clientId, eventId, eventStart.toISOString(), eventEnd.toISOString(), eventTitle, new Date().toISOString()]);
       sendEmail(clientEmail, userEmail, eventStart, eventEnd);
     }
   }
