@@ -1,7 +1,6 @@
 import database from '../api/database';
 import { redirect } from '@sveltejs/kit';
 
-export let _clientID = 1;
 /** @type {import('./$types').Actions} */
 export const actions = {
   login: async ({ request, cookies }) => {
@@ -10,14 +9,17 @@ export const actions = {
     const password = loginDetails.get('password');
 
     const clientData = await database.getJsonFromSelectQuery(
-      `SELECT * FROM CLIENT_TBL WHERE CLIENT_EMAIL = '${email}'`
+      `SELECT * FROM CLIENT_TBL WHERE CLIENT_EMAIL = "${email}"`
     );
 
     if (clientData.results.length > 0) {
       if (password == clientData.results[0].CLIENT_PASSWORD) {
         let getClientId = clientData.results[0].CLIENT_ID;
 
-        cookies.set('clientId',getClientId);
+        cookies.set('clientId',getClientId, {
+          secure: false,
+          path:'/'
+        });
         throw redirect(303, '/app/schedule');
       }
     } else {
