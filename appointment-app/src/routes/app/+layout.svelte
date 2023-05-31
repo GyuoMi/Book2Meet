@@ -80,7 +80,7 @@
 					<li><a href="/app/appointments">Booking</a></li>
 					<li><a href="/app/Meetings">Past Meetings</a></li>
 					<li><a href="/app/upcoming">Waiting List</a></li>
-					<li><a>About</a></li>
+					<li><a href="https://github.com/GyuoMi/Book2Meet">About</a></li>
 				</ul>
 			</div>
 		</div>
