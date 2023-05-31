@@ -40,10 +40,10 @@
 		<div>
 			<h1 class="text-5xl font-bold">Ready to Book an Appointment?</h1>
 			<p class="py-6">
-				Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-				quasi. In deleniti eaque aut repudiandae et a id nisi.
 			</p>
-			<button class="btn btn-primary">Get Started</button>
+
+			<a href="/signup"><button class="btn btn-primary">Sign up</button></a>
+			<a href="/login"><button class="btn btn-primary">Login</button></a>
 		</div>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 			<h2 class="card-title">Schedule Your Calender</h2>
 			<p>This is where you can indicate your available times on the calender.</p>
 			<div class="card-actions justify-end">
-				<a href="/schedule" class="btn btn-primary">Schedule</a>
+				<!-- <a href="/schedule" class="btn btn-primary">Schedule</a> -->
 			</div>
 		</div>
 	</div>
@@ -74,102 +74,13 @@
 			<h2 class="card-title">Book Sessions</h2>
 			<p>This is where you can book sessions with other users</p>
 			<div class="card-actions justify-end">
-				<button class="btn btn-primary">Book</button>
+				<!-- <button class="btn btn-primary">Book</button> -->
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- 
-   Login page
--->
-<div class="hero min-h-screen bg-base-200">
-	<div class="hero-content flex-col lg:flex-row-reverse">
-		<div class="text-center lg:text-left">
-			<h1 class="text-5xl font-bold">Login now!</h1>
-			<p class="py-6">
-				Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-				quasi. In deleniti eaque aut repudiandae et a id nisi.
-			</p>
-		</div>
 
-		<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-			<div class="card-body">
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Email Address</span>
-					</label>
-					<input
-						type="text"
-						placeholder="john.snow@gmail.com"
-						class="input input-bordered"
-						bind:value={email}
-						on:input={() => {
-							if (!emailPattern.test(email)) {
-								emailError = 'Invalid email address';
-							} else {
-								emailError = '';
-								emailValid = true;
-							}
-						}}
-					/>
-					{#if emailError}
-						<p class="text-red-600 text-sm">{emailError}</p>
-					{/if}
-				</div>
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text text-primary">Password</span>
-					</label>
-					<input type="text" placeholder="Password" class="input input-bordered" />
-					<label class="label">
-						<a href="#" class="label-text-alt link link-hover">Forgot password?</a>
-					</label>
-				</div>
-
-				<div class="error-message">
-					{#if formErrorMessage}
-						<div class="alert alert-error shadow-lg mt-0" style="height:20px">
-							<div>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-current flex-shrink-0 h-6 w-6"
-									fill="none"
-									viewBox="0 0 24 24"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-									/></svg
-								>
-								<span style="font-size: 14px;">Please fill in all the required fields.</span>
-							</div>
-						</div>
-					{/if}
-				</div>
-
-				<div class="form-control mt-6">
-					<a href={emailValid ? '/schedule' : '#'} class="btn btn-primary" on:click={handleClick}
-						>Login</a
-					>
-				</div>
-
-				<label class="label">
-					<span class="label-text" style="position:absolute; left:85px; bottom:30px"
-						>Do not have an account?</span
-					>
-					<a
-						href="/signup"
-						class="label-text-alt link link-primary link-hover underline"
-						style="position:absolute; left:244px; bottom:31px">SIGN UP!</a
-					>
-				</label>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="divider" />
 <!-- 
    Footer
 -->
@@ -226,8 +137,7 @@
 					width="24"
 					height="24"
 					viewBox="0 0 24 24"
-					class="fill-current"
-					><path
+					class="fill-current" ><path
 						d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
 					/></svg
 				></a
@@ -236,4 +146,3 @@
 	</div>
 </footer>
 
-<slot />
