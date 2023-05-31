@@ -85,10 +85,8 @@
                 })}</td>
               <td>
                 <div class="dropdown">
-                    <button class="btn btn-circle swap swap-rotate" style="height: 1.5rem; width: 1.5rem" on:click={() => handleClick(booking.EVENT_ID)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                          <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                    <button class="btn btn-ghost" on:click={() => handleClick(booking.EVENT_ID)}>
+                         open
                       </button>                      
                   <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40">
                     <div class="overflow-x-auto">
