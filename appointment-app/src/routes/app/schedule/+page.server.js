@@ -46,7 +46,7 @@ export const actions = {
       } else {
         await database.mysqlconn.query(
           'INSERT INTO EVENT_TBL (EVENT_ID,EVENT_START,EVENT_END,EVENT_TITLE,EVENT_COLOR,CLIENT_ID) VALUES (?,?,?,?,?,?)',
-          [event.id, event.start, event.end, event.title, event.backgroundColor, clientId]
+          [event.id, new Date(event.start).toISOString(), new Date(event.end).toISOString(), event.title, event.backgroundColor, clientId]
         );
 
       }
