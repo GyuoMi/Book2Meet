@@ -66,9 +66,9 @@
 		return false;
 	}
 	function createEventWithPointer(event) {
-		// if (!isUserBookingValid(event)) {
-		// 	return;
-		// }
+		 if (!isUserBookingValid(event)) {
+		 	return;
+		 }
 		ec.addEvent({
 			start: event.start,
 			end: event.end,
