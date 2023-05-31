@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
-
+//stores the variables typed in the search bars
 	let email = '';
 	let password = '';
 	let emailError = '';
-
+//used to ensure data is correct
 	let emailValid = false;
 	let passwordValid = false;
 	let isFormValid = false;
 	let formErrorMessage = '';
-
+//checks whether input is valid
 	function handleSubmit() {
 		isFormValid = email.trim() !== '' && password.trim() !== '';
 		if (!isFormValid) {
@@ -20,7 +20,7 @@
 		}
 		return;
 	}
-
+  
 	function handleClick() {
 		handleSubmit();
 		password = '';
@@ -45,7 +45,7 @@
 		</div>
 
 <!--
-  Email field
+  Email field sends the data to the function to check whether it is correct or not
 -->
 		<form method="POST" action="?/login">
 			<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -87,7 +87,7 @@
 							<a href="#" class="label-text-alt link link-hover">Forgot password?</a>
 						</label>
 					</div>
-
+          <!-- reports the error that the client faced  -->
 					<div class="error-message">
 						{#if formErrorMessage}
 							<div class="alert alert-error shadow-lg mt-0" style="height:20px">
@@ -139,7 +139,7 @@
 </div>
 <form />
 <!-- 
-   Footer
+   Footer 
 -->
 
 <footer class="footer footer-center p-2 bg-primary text-primary-content">

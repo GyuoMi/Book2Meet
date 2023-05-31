@@ -12,7 +12,7 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
   
-
+//sets the rating if the user has been searched for, default is 5 stars
   let rating;
   try{
     rating = Math.trunc(form.rating);
@@ -22,12 +22,15 @@
   }
 //gets all possible emails from the database and stories them in list to be searched up 
   const countries = data.emails;
+  //used to separate user and client bookings
   let allUserBookingsJson = [];
 	let userBookings = [];
 	let clientEvents = getArrayOfEventsFromDatabase(form);
 	let currentEventSelected;
 	let ec;
+  //imports the necessary plugings
 	let plugins = [TimeGrid, Interaction];
+  //sets options for the calendar
 	let options = {
 		view: 'timeGridWeek',
 		allDaySlot: false,
@@ -48,23 +51,25 @@
 		for (let i = 0; i < clientEvents.length; i++) {
 			let startDate = new Date(clientEvents[i].start);
 			let endDate = new Date(clientEvents[i].end);
-			//fix
 			let startEventDate = new Date(event.start);
 			let endEventDate = new Date(event.end);
 			if (startDate <= startEventDate && endDate >= endEventDate) {
+        //creates new event object created from the existing date object
         let eventVar = {
           id: clientEvents[i].id,
           start: event.start,
           end:event.end 
         };
+        //adds it to user rating list
         userBookings.push(eventVar);
+        //turns it into a json string so it can be submitted
         allUserBookingsJson = JSON.stringify(userBookings);
-        console.log(userBookings);
 				return true;
 			}
 		}
 		return false;
 	}
+  //allows a user to create an event with a Pointer
 	function createEventWithPointer(event) {
 		// if (!isUserBookingValid(event)) {
 		// 	return;
@@ -87,12 +92,13 @@
 		return false;
 	}
 
+  //this is used to delete the event that is selected
 	function getCurrentEventClicked(event) {
 		// if (isUserBooking(event.event)) {
 		currentEventSelected = event;
 		// }
 	}
-
+  //sets variable to json string before submitting
   function setVariableToJsonStringOfEvents(){
     allUserBookingsJson = JSON.stringify(userBookings); 
   }
@@ -102,6 +108,7 @@
 let filteredCountries = [];
 // $: console.log(filteredCountries)	
 
+//used for suggested searches
 const filterCountries = () => {
 	let storageArr = []
 	if (inputValue) {
@@ -111,6 +118,7 @@ const filterCountries = () => {
 			 }
 		});
 	}
+  //stores the filtered countries 
 	filteredCountries = storageArr;
 }	
 
@@ -128,7 +136,7 @@ const clearInput = () => {
 	inputValue = "";	
 	searchInput.focus();
 }
-	
+//when a user clicks on the country it sets the text in the search bar	
 const setInputVal = (countryName) => {
 	inputValue = removeBold(countryName);
 	filteredCountries = [];
@@ -169,7 +177,7 @@ const navigateList = (e) => {
 } 
 </script>
 <svelte:window on:keydown={navigateList} />
-
+<!-- used to send whatever the user searched back to the backend-->
 <form method="POST" autocomplete="off" action="?/getSearchedEmailEvents">
   <div class="flex items-center max-w-md mx-auto py-1">
    <div class="autocomplete">
@@ -207,7 +215,7 @@ const navigateList = (e) => {
 </div>
 
 <Calendar bind:this={ec} {plugins} {options} />
-
+<!-- delete button to delete the event from the calendar -->
 <div class="flex flex-col items-center">
 	<button
 		on:click={deleteEventFromCalender(ec, currentEventSelected)}

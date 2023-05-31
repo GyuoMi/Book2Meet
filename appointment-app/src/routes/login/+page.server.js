@@ -7,22 +7,25 @@ export const actions = {
     const loginDetails = await request.formData();
     const email = loginDetails.get('email');
     const password = loginDetails.get('password');
-
+    //gets all clients data from tbl where email matches
     const clientData = await database.getJsonFromSelectQuery(
       `SELECT * FROM CLIENT_TBL WHERE CLIENT_EMAIL = "${email}"`
     );
-
+    //checks to see if array is empty
     if (clientData.results.length > 0) {
+      //if array is not empty then it checks if the password is correct
       if (password == clientData.results[0].CLIENT_PASSWORD) {
         let getClientId = clientData.results[0].CLIENT_ID;
-
+        //sets client ID in cookies to be retrieved when necessary again
         cookies.set('clientId',getClientId, {
           secure: false,
           path:'/'
         });
+        //redirects to another page 303 is necessary
         throw redirect(303, '/app/schedule');
       }
     } else {
+      //if it doesn't work it returns false
       return { success: false };
     }
 

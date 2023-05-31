@@ -29,9 +29,7 @@ export async function load({cookies}) {
     bookingDetailsFromDatabaseJson = { results: [] };
     allBookings = { results: [] };
   }
-
-  console.log(bookingDetailsFromDatabaseJson);
-  console.log(allBookings);
+  //returns data to front end
   return {
     bookingDetails: bookingDetailsFromDatabaseJson,
     allBookings: allBookings
