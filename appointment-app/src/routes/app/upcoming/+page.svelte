@@ -1,7 +1,6 @@
 <script>
     /** @type {import('./$types').PageServerLoad} */
     export let data;
-    console.log(data);
   
     let showMessage = false;
     let desiredEventID = "";
@@ -21,10 +20,9 @@
     let waitingList = [];
     allBookings.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
     let cancelledBookings = [];
-  
+    //checks each booking to see status of event 
     bookingDetails.forEach(function (booking) {
       let eventId = booking.EVENT_ID;
-      console.log('EVENT_ID:', eventId);
       let eventWaitingList = [];
       allBookings.forEach(function (entry) {
         if (entry.EVENT_ID === eventId) {
@@ -45,13 +43,12 @@
     //       cancelledBookings.push(booking);
     //     }
     //   }
-      console.log(eventWaitingList);
     });
   
   </script>
-  
+ 
   <div class="hero min-h-screen bg-base-100">
-  
+
     <div class="lg:text-top">
       <h1 class="text-5xl font-bold" style="position:absolute; top:95px; left:150px">Upcoming Meetings</h1>
       <p class="py-6 text-gray-400 font-medium" style="position:absolute; top:135px; left:150px">

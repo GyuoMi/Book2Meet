@@ -14,7 +14,7 @@
 	let waitingList = [];
 	allBookings.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
 	let cancelledBookings = [];
-
+  //inserts each event into notificaiton bar
 	bookingDetails.forEach(function(booking) {
     	let eventId = booking.EVENT_ID;
     	console.log('EVENT_ID:', eventId);
@@ -26,6 +26,7 @@
 			eventWaitingList.sort((a, b) => new Date(a.DATE_BOOKED) - new Date(b.DATE_BOOKED));
 			
 		});
+    //checks to see if results are valid
 		if (eventWaitingList.length > 0 && eventWaitingList[0].CLIENT_ID === booking.CLIENT_ID) {
       		if (booking.BOOKING_VALID) {
             bookings.push(booking);
@@ -40,7 +41,7 @@
         	}
 		}
   });
-
+  //gets the duration of the current date 
   function getDuration(start, end) {
   const duration = new Date(end) - new Date(start);
   const hours = Math.floor(duration / (1000 * 60 * 60));
@@ -48,7 +49,7 @@
   return `${hours}h ${minutes}m`;
 }
 </script>
-
+<!-- theme for navbar spanning multiple pages -->
 <html data-theme="autumn" />
 
 <div class="navbar bg-base-100">
