@@ -71,9 +71,9 @@
 	}
   //allows a user to create an event with a Pointer
 	function createEventWithPointer(event) {
-		// if (!isUserBookingValid(event)) {
-		// 	return;
-		// }
+		 if (!isUserBookingValid(event)) {
+		 	return;
+		 }
 		ec.addEvent({
 			start: event.start,
 			end: event.end,
