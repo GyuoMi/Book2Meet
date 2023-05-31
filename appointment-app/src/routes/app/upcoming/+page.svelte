@@ -85,7 +85,7 @@
                 })}</td>
               <td>
                 <div class="dropdown">
-                    <button class="btn btn-primary" on:click={() => handleClick(booking.EVENT_ID)}>
+                    <button class="btn btn-ghost" on:click={() => handleClick(booking.EVENT_ID)}>
                          open
                       </button>                      
                   <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40">
