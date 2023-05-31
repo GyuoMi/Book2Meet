@@ -45,7 +45,7 @@
 		</div>
 
 <!--
-  Email field
+  Email field for the login page
 -->
 		<form method="POST" action="?/login">
 			<div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

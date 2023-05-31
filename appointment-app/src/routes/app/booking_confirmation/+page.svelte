@@ -9,17 +9,18 @@
 
  let bookingChoice = null;
  let selectedbookingId = null;
- let acceptresult = "1";
- let declineresult = "0";
+ 
    
 
  let bookingDetails = data.bookingDetails.results;
- let allBookings = data.allBookings.results;
+ 
  
  //console.log(bookingDetails)
 
+ //gets the table where BOOKING_VALID is null
  let tableData =bookingDetails;
 
+ //gets the difference between EVENT_START and EVENT_ENF
  function getDuration(start, end) {
      const duration = new Date(end) - new Date(start);
      const hours = Math.floor(duration / (1000 * 60 * 60));
@@ -28,6 +29,7 @@
  }
  
 
+ // This is how take the booking ID and the value of the clicked button to back-end
  function handleSubmit(event, bookingID) {
  event.preventDefault();
  const formData = new FormData(event.target);
@@ -45,6 +47,7 @@
 
 <div class="hero min-h-screen bg-base-100">
 
+<!-- Header Text of the page-->
  <div class="lg:text-top">
      <h1 class="text-5xl font-bold" style="position:absolute; top:95px; left:150px">Confirm Bookings</h1>
      <p class="py-6 text-gray-400 font-medium" style="position:absolute; top:135px; left:150px">
@@ -59,7 +62,9 @@
        <span>Someone booked you for a meeting! Confirm or Decline below</span>
      </div>
    </div>
- 
+
+
+ <!-- Table of meetings booked with user, This where they can accept or decline-->
  <div class="card w-5/6 bg-base-100 shadow-xl" style="position:absolute; top:270px; left:100px">
      <div class="card-body">
 
@@ -104,7 +109,7 @@
                  
              </table>
          {:else if tableData.length === 0}
-         <p>No data available</p>
+         <p>No one has booked meeting with you yet!</p>
          {:else}
          <p>Loading...</p>
          {/if}

@@ -11,12 +11,15 @@ export async function load({cookies}) {
   let clientId = cookies.get('clientId');
   //let clientId =44;
   if (clientId !== undefined) {
-
+  
+    // gets meetings with null values from the database
   bookingDetailsFromDatabaseJson = await database.getJsonFromSelectQuery(
     `select B.*, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME from BOOKING_TBL B 
     JOIN(SELECT E.EVENT_ID, E.CLIENT_ID, C.CLIENT_FIRST_NAME, C.CLIENT_LAST_NAME FROM EVENT_TBL E JOIN CLIENT_TBL C 
     ON E.CLIENT_ID = C.CLIENT_ID) AS C ON B.EVENT_ID = C.EVENT_ID where B.CLIENT_ID = ${clientId} AND B.EVENT_START > NOW() AND BOOKING_VALID IS NULL`
   );
+
+  //retrieve all the bookings from the database.
   allBookings = await database.getJsonFromSelectQuery(
     `select * from BOOKING_TBL where EVENT_START > NOW()`
 
