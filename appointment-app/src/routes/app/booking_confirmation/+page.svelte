@@ -82,7 +82,7 @@
                <tbody>
                  {#each tableData as row}
                      <tr>
-                     <td>{row.CLIENT_FIRST_NAME} {row.CLIENT_LAST_NAME} {row.BOOKING_ID}</td>
+                     <td>{row.CLIENT_FIRST_NAME} {row.CLIENT_LAST_NAME}</td>
                      <td>{new Date(row.EVENT_START).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false })}</td>
                      <td>{getDuration(row.EVENT_START, row.EVENT_END)}</td>
                      
