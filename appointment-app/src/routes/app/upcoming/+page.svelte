@@ -1,7 +1,6 @@
 <script>
     /** @type {import('./$types').PageServerLoad} */
     export let data;
-    console.log(data);
   
     let showMessage = false;
     let desiredEventID = "";
@@ -21,10 +20,9 @@
     let waitingList = [];
     allBookings.sort((a, b) => new Date(a.EVENT_START) - new Date(b.EVENT_START));
     let cancelledBookings = [];
-  
+    //checks each booking to see status of event 
     bookingDetails.forEach(function (booking) {
       let eventId = booking.EVENT_ID;
-      console.log('EVENT_ID:', eventId);
       let eventWaitingList = [];
       allBookings.forEach(function (entry) {
         if (entry.EVENT_ID === eventId) {
@@ -45,13 +43,12 @@
     //       cancelledBookings.push(booking);
     //     }
     //   }
-      console.log(eventWaitingList);
     });
   
   </script>
-  
+ 
   <div class="hero min-h-screen bg-base-100">
-  
+
     <div class="lg:text-top">
       <h1 class="text-5xl font-bold" style="position:absolute; top:95px; left:150px">Upcoming Meetings</h1>
       <p class="py-6 text-gray-400 font-medium" style="position:absolute; top:135px; left:150px">
@@ -88,10 +85,8 @@
                 })}</td>
               <td>
                 <div class="dropdown">
-                    <button class="btn btn-circle swap swap-rotate" style="height: 1.5rem; width: 1.5rem" on:click={() => handleClick(booking.EVENT_ID)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                          <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                    <button class="btn btn-ghost" on:click={() => handleClick(booking.EVENT_ID)}>
+                         open
                       </button>                      
                   <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-40">
                     <div class="overflow-x-auto">
