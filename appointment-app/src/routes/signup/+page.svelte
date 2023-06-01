@@ -1,31 +1,31 @@
 <script lang="ts">
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
-
+  import {availableTimeZones} from '../timezone.js';
 	/** @type {import('./$types').ActionData} */
 	export let form;
-
+//strings used to store details of data to be checked
 	let password = '';
 	let confirmPassword = '';
 	let email = '';
 	let Fname = '';
 	let Lname = '';
 	let message = '';
-
+  //variables to store error messages to be displayed
 	let emailError = '';
 	let passwordError = '';
 	let confirmPasswordError = '';
 	let FnameError = '';
 	let LnameError = '';
 	let formErrorMessage = '';
-
+  //booleans to check if all criteria has been filled
 	let isFormValid = false;
 	let passwordValid = false;
 	let confirmPasswordValid = false;
 	let emailValid = false;
 	let FnameValid = false;
 	let LnameValid = false;
-
+  //checks to see if passwords match
 	function checkPasswords() {
 		if (password !== confirmPassword) {
 			message = 'Passwords do not match.';
@@ -40,9 +40,9 @@
 		password = '';
 		confirmPassword = '';
 	}
-
+  //allows the user to see the password
 	let showPassword = false;
-
+  //allows the user to toggle seeing the password on or off
 	function toggleShowPassword() {
 		showPassword = !showPassword;
 	}
@@ -52,14 +52,14 @@
 		password = target.value;
 	}
 	let passwordStrengthText = '';
-
+  //uses regex to test password strength
 	function getPasswordStrength() {
 		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		const hasLowercase = /[a-z]/.test(password);
 		const hasUppercase = /[A-Z]/.test(password);
 		const hasNumber = /\d/.test(password);
 		const hasSpecialChar = /[@$!%*?&]/.test(password);
-
+    //checks if password is correct
 		if (!password) {
 			passwordStrengthText = '';
 		} else if (password.length < 8) {
@@ -79,7 +79,7 @@
 			passwordValid = true;
 		}
 	}
-
+  //send how strong the password is to be displayed
 	onMount(() => {
 		getPasswordStrength(); // call the function once when the component is mounted
 	});
@@ -121,6 +121,7 @@
 			class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
 			style="position:absolute; top:190px; left:147px"
 		>
+      <!-- sends data to the backend for processing the inputted data if it is correct -->
 			<form method="POST" action="?/signup">
 				<div class="card-body">
 					<div class="form-control" style="width:43%">
@@ -146,7 +147,7 @@
 							<p class="text-red-600 text-sm">{FnameError}</p>
 						{/if}
 					</div>
-
+          
 					<div class="form-control" style="position:absolute;width: 43%; top:32px; left:190px;">
 						<label class="label">
 							<span class="label-text text-primary">Last Name</span>
@@ -172,7 +173,7 @@
 					</div>
 
 					<!--
-  Email field
+  Email field checks to see if everything is correct
 -->
 
 					<div class="form-control">
@@ -200,7 +201,7 @@
 					</div>
 
 					<!--
-  Password fields
+  Password fields check to see if everything is correct
 -->
 					<div class="form-control">
 						<label class="label">
@@ -247,7 +248,7 @@
 						{/if}
 					</div>
 					<!--
-  Confirm password fields
+  Confirm password fields checks to see if everything is correct
 -->
 					<div class="form-control" style="position:relative; bottom:24px;px">
 						<label class="label">
@@ -293,7 +294,19 @@
 							</div>
 						{/if}
 					</div>
+              <div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text mt-1 text-sm font-bold">Choose Time Zone</span>
+  </label>
+  <select name="timeZone" class="select select-bordered">
+    <option disabled selected>Pick one</option>
+    {#each availableTimeZones as timeZone}
+    <option>{timeZone}</option>
+    {/each}
+  </select>
+</div>
 
+          <!-- submits data from field if everything is correct -->
 					<div class="form-control mt-6">
 						<button formaction="?/signup" class="btn btn-primary">
 							Sign Up

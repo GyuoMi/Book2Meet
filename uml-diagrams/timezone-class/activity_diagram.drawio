@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" modified="2023-05-17T18:33:50.417Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0" etag="m6pSPE4d4XYLV2p5fbAh" version="21.2.8" type="device">
+  <diagram name="Page-1" id="O1oSEbBRvxV_fkB2SG3u">
+    <mxGraphModel dx="702" dy="774" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="V274inUJhTe--h5jXk2G-1" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="340" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="V274inUJhTe--h5jXk2G-1" parent="1" target="V274inUJhTe--h5jXk2G-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-3" value="User Searches for Bookie " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-5" value="Events are converted to users timezone " style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-7" target="V274inUJhTe--h5jXk2G-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="350" />
+              <mxPoint x="210" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-7" target="V274inUJhTe--h5jXk2G-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-7" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="315" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-8" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="340" y="730" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-10" value="[no events]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="130" y="490" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-13" target="V274inUJhTe--h5jXk2G-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-13" value="Converted events are sent to front end" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-14" target="V274inUJhTe--h5jXk2G-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-14" value="Calendar Renders the events" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="288.75" y="630" width="132.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-17" value="[is events]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="350" y="400" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="V274inUJhTe--h5jXk2G-18" target="V274inUJhTe--h5jXk2G-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V274inUJhTe--h5jXk2G-18" value="Events are retrieved from the database" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
