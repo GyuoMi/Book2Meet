@@ -1,8 +1,17 @@
 <script lang="ts">
 	import { emailPattern, passwordPattern } from './validation.js';
 	import { onMount } from 'svelte';
+	import { afterUpdate } from 'svelte';
+
+
+let isVisible = false;
+
+afterUpdate(() => {
+  isVisible = true;
+});
 
   //used to check if all details entered on the page are valid
+
 	let email = '';
 	let password = '';
 	let emailError = '';
@@ -29,6 +38,22 @@
 	}
 </script>
 
+<style>
+	.fade-in {
+	  animation: fadeAnimation 1.0s ease-in forwards;
+	  opacity: 0;
+	}
+  
+	@keyframes fadeAnimation {
+	  from {
+		opacity: 0;
+	  }
+	  to {
+		opacity: 1;
+	  }
+	}
+  </style>
+
 <!-- 
     ~ The "flex...h-screen" centers the contents of the body to the middle of the page
     ~ You use "absolute" to specify the spacing in pixels
@@ -36,13 +61,18 @@
 
 -->
 
-<div class="hero min-h-screen bg-base-100 top-10">
+<div class="hero min-h-screen bg-base-100 top-10" class:fade-in={isVisible}>
 	<div class="hero-content flex-col lg:flex-row-reverse">
 		<img src="/images/welcome.jpg" class="rounded-lg" style="width: 50%; height:auto;" />
+		<img src="/images/book2meet.png" class="rounded-lg" style="position:absolute; width: 10%; height:auto;top:20px; left:125px" />
+		<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 10%; height:auto;top:0px; right:150px" />
 		<div>
 			<h1 class="text-5xl font-bold">Ready to Book an Appointment?</h1>
 			<p class="py-6">
-			</p>
+				Book2Meet is a software tool or platform designed to 
+				facilitate the scheduling and management of appointments. 
+				It streamlines the process of booking appointments and eliminating 
+				the need for manual scheduling.</p>
 
 			<a href="/signup"><button class="btn btn-primary">Sign up</button></a>
 			<a href="/login"><button class="btn btn-primary">Login</button></a>
@@ -50,15 +80,21 @@
 	</div>
 </div>
 
+
 <!-- 
-   Schedule information Tab
+   Book information Tab
 -->
 
-<div class="hero min-h-screen bg-base-200">
-	<div class="card w-96w h-96 bottom-10 left-96 bg-base-100 shadow-xl">
+<div class="hero min-h-screen bg-base-200" class:fade-in={isVisible}>
+
+	<img src="/images/book6.png" class="rounded-lg" style="position:absolute; width: 55%; height:auto; left:10px ; top:850px" />
+	<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 10%; height:auto;top:760px; left:0px" />
+	<div class="card w-2/6 h-96 bottom-10 left-96 bg-base-100 shadow-xl">
 		<div class="card-body">
-			<h2 class="card-title">Schedule Your Calender</h2>
-			<p>This is where you can indicate your available times on the calender.</p>
+			<h2 class="card-title text-3xl">Book Meetings with other users!</h2>
+			<p class="py-6 mt-8 text-zinc-600 " style="position:absolute">Welcome to our streamlined appointment booking system, where booking your next appointment 
+				is a breeze! Say goodbye to lengthy phone calls and endless back-and-forth emails. 
+				Our user-friendly platform puts you in control, allowing you to book appointments with ease.</p>
 			<div class="card-actions justify-end">
 				<!-- <a href="/schedule" class="btn btn-primary">Schedule</a> -->
 			</div>
@@ -67,14 +103,20 @@
 </div>
 
 <!-- 
-   Book information Page
+   Schedule information Page
 -->
 
-<div class="hero min-h-screen bg-base-100">
+<div class="hero min-h-screen bg-base-100" class:fade-in={isVisible}>
+
+	<img src="/images/schedule.jpg" class="rounded-lg" style="position:absolute; width: 40%; height:auto;right:200px " />
+	<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 12%; height:auto;top:1480px; right:0px" />
 	<div class="card w-1/3 h-96 bottom-10 right-96 bg-base-100 shadow-xl">
 		<div class="card-body">
-			<h2 class="card-title">Book Sessions</h2>
-			<p>This is where you can book sessions with other users</p>
+			<h2 class="card-title text-3xl">Schedule Your Calender</h2>
+			<p class="py- text-6 mt-8 zinc-600 "> Take control of your schedule like never before. 
+				Our intuitive calendar interface allows you to manage your availability, 
+				choose your own time slots, and update your schedule in real-time. 
+				Say goodbye to manual scheduling conflicts and double bookings.</p>
 			<div class="card-actions justify-end">
 				<!-- <button class="btn btn-primary">Book</button> -->
 			</div>
@@ -82,11 +124,36 @@
 	</div>
 </div>
 
+<!-- 
+   Final page
+-->
+
+<div class="hero min-h-screen bg-base-200" class:fade-in={isVisible}>
+
+	<img src="/images/final.png" class="rounded-lg" style="position:absolute; width: 60%; height:auto; left:10px " />
+	<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 12%; height:auto;top:2220px; left:0px" />
+	<div>
+		<div class="flex flex-col h-2 border-opacity-50 bg-primary" style="position:absolute; right:200px; top:2590px">
+			<div class="divider">________________________________________________________</div>
+			
+		  </div>
+		<h1 class="text-7xl font-bold" style="position:absolute; right:80px">Get Started Today!</h1>
+		<p class="py-6">
+		</p>
+
+		<a href="/signup"><button class="btn btn-primary mt-14" style="position:absolute; right:300px">Sign up</button></a>
+		<a href="/login"><button class="btn btn-primary mt-14" style="position:absolute; right:400px">Login</button></a>
+	</div>
+
+	
+</div>
+
 
 <!-- 
    Footer
 -->
-
+<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 12%; height:auto;top:3080px; right:0px" />
+<img src="/images/dots.png" class="rounded-lg" style="position:absolute; width: 12%; height:auto;top:3080px; left:0px" />
 <footer class="footer footer-center p-2 bg-primary text-primary-content">
 	<div>
 		<svg
