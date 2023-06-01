@@ -123,13 +123,13 @@
 					</div>
 
 					<label class="label">
-						<span class="label-text" style="position:absolute; left:85px; bottom:30px"
+						<span class="label-text" style="position:absolute; left:40px; bottom:30px"
 							>Do not have an account?</span
 						>
 						<a
 							href="/signup"
 							class="label-text-alt link link-primary link-hover underline"
-							style="position:absolute; left:244px; bottom:31px">SIGN UP!</a
+							style="position:absolute; left:200px; bottom:31px">SIGN UP!</a
 						>
 					</label>
 				</div>
