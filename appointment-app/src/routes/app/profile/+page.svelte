@@ -16,13 +16,6 @@
    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 	const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
-    /*
-	const editButton = document.getElementById('edit-btn');
-	const nameInput = document.getElementById('name');
-	const surnameInput = document.getElementById('surname');
-	const emailInput = document.getElementById('email');
-	const passwordInput = document.getElementById('password');
-*/
 	function validateEmail() {
 		const email = emailInput.value.trim();
 		if (email === '' || !emailPattern.test(email)) {

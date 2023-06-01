@@ -3,15 +3,20 @@
 	import { onMount } from 'svelte';
 	import { afterUpdate } from 'svelte';
 
+
 let isVisible = false;
 
 afterUpdate(() => {
   isVisible = true;
 });
+
+  //used to check if all details entered on the page are valid
+
 	let email = '';
 	let password = '';
 	let emailError = '';
 
+  //booleans used to assert correctness of statements
 	let emailValid = false;
 	let passwordValid = false;
 	let isFormValid = false;

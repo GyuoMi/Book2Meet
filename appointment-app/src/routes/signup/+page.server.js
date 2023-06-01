@@ -4,18 +4,20 @@ import { redirect } from '@sveltejs/kit';
 /** @type {import('./$types').Actions} */
 export const actions = {
 	signup: async ({ request }) => {
+    //extracts json data from form
 		const signupDetails = await request.formData();
+    //extracts data from client input 
 		const firstName = signupDetails.get('firstName');
 		const lastName = signupDetails.get('lastName');
 		const email = signupDetails.get('email');
 		const password = signupDetails.get('password');
     const timeZone = signupDetails.get('timeZone');
-		console.log(signupDetails);
+    //inserts new client into database
 		await mysqlconn.query(
 			'INSERT INTO CLIENT_TBL (CLIENT_FIRST_NAME,CLIENT_LAST_NAME, CLIENT_EMAIL, CLIENT_PASSWORD,CLIENT_TIMEZONE) VALUES (?,?,?,?,?)',
 			[firstName, lastName, email, password,timeZone]
 		);
-
+    //redirects to login if everything is correct
 		throw redirect(303, '/login');
 
 		/*
