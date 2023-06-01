@@ -2,7 +2,7 @@
 
 | Statements                  | Branches                | Lines             |
 | --------------------------- | ----------------------- | ----------------- |
-| ![Statements](https://img.shields.io/badge/statements-96.44%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-96.44%25-brightgreen.svg?style=flat) |
+| ![Statements](https://img.shields.io/badge/statements-96.55%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-96.55%25-brightgreen.svg?style=flat) |
 
 This website will allow a user to schedule meetings with other
 users. 
